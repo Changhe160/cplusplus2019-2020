@@ -64,7 +64,7 @@
     emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple,ostream,istream}, % 非内置类型
     emphstyle={\color{teal}},
     escapeinside={(*@}{@*)},
-     literate={&}{{{\color{red}\&{}}}}2 
+    literate={&}{{\color{red}\&}}{1}                                      %{<replace>}{<replacement text>}{<length>} no comma between items
 }
 
 \usepackage{multicol}
@@ -804,21 +804,7 @@ Employee e2(e1); //错误：复制构造函数是删除的，不能调用
 
 \begin{frame}[fragile]
     {6.2.2 复制构造函数\small{~---~复制优化}}
-
-\begin{greenblock}{以下代码会输出什么？}
-\vspace{-2.5mm}\begin{lstlisting}
-Fraction::Fraction(const Fraction &rhs) : m_numerator(rhs.m_numerator),
-    m_denominator(rhs.m_denominator) {
-    cout<< "Copy constructor called" << endl;
-}
-Fraction c2 = Fraction(3, 2);
-\end{lstlisting}\vspace{-1.5mm}
-\end{greenblock}
-\begin{block}<2->{复制优化}
-C++~编译器使用一种名为\alert{拷贝去除}（copy ellision\index{C!constructor!copy ellision}）的优化技术：创建临时对象和调用拷贝构造函数这两个过程完全可以用直接初始化的方式来完成。
-\end{block}
-
-\begin{greenblock}<3->{使用引用提高代码性能}
+\begin{greenblock}{使用引用提高代码性能}
 \vspace{-1.5mm}
 \begin{lstlisting}
 Fraction divide(const Fraction &dividend, const Fraction &divisor) {
@@ -827,7 +813,7 @@ Fraction divide(const Fraction &dividend, const Fraction &divisor) {
 Fraction b(2,3),c(4,5);
 Fraction e = divide(b, c);
 \end{lstlisting}\vspace{-1.5mm}
-\onslide<4->divide函数调用过程中Fraction类构造函数调用几次？
+\onslide<1->divide函数调用过程中Fraction类构造函数调用几次？
 \end{greenblock}
 
 \end{frame}
