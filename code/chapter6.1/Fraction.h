@@ -24,6 +24,7 @@ private:
 
 //6.1.2
 inline double Fraction::value() const {
+	//this = new Fraction();
 	return static_cast<double>(m_numerator) / m_denominator;
 }
 

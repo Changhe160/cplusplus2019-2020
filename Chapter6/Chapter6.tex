@@ -119,8 +119,8 @@
 \begin{block}{学习目标}
 \begin{enumerate}
 \item 理解类的概念和基本设计原则；
-\item 理解构造函数和析构函数的作用与执行过程；
-\item 掌握常见运算符重载技术和静态成员的使用方法；
+\item 理解{\color{red}构造函数和析构函数}的作用与执行过程；
+\item 掌握常见{\color{red}运算符重载技术}和静态成员的使用方法；
 \item 能够运用面向对象程序设计方法设计和实现简单类；
 \end{enumerate}
 \end{block}
@@ -185,7 +185,7 @@
  \vspace{-1em}
 \begin{blueblock}<2->{分数类}
  \vspace{-0.1em}\begin{lstlisting}
-class Fraction {
+class Fraction (*@{\color{red}\{}@*)
     //数据成员，访问控制属性默认是私有
     int m_numerator = 0;  // 分子默认为0； C++11
     int m_denominator = 1;  //分母默认为1；
@@ -196,7 +196,7 @@ public://公有成员函数
     void reduce();  //约分
 private:
     int gcd(int x, int y);  //求分子分母最大公约数
-};
+(*@{\color{red}\};}@*)
 //辅助函数
 void makeCommon(Fraction &a, Fraction &b);
 ostream& print(ostream &out, const Fraction &f);

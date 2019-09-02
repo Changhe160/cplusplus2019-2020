@@ -111,7 +111,8 @@
 \begin{columns}
 	\begin{column}{0.6\textwidth}
 	\begin{block}{教材}
-	李长河, 童恒建, 叶亚琴等, C++程序设计（基于C++11标准）. 电子工业出版社, \alert{2019年1月第2次印刷}
+	李长河, 童恒建, 叶亚琴等, C++程序设计（基于C++11标准）. 电子工业出版社, \alert{2019年1月第2次印刷}\\
+\href{https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=52723}{电子工业出版社官网},\href{http://product.dangdang.com/25338942.html}{当当},\href{https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-17538325040.26.129d66dbA1Cn8D&id=576915359900&rn=de470f45922c94391043e09f1304e7e9&abbucket=3} {天猫旗舰店},\href{https://item.jd.com/12424029.html?dist=jd}{京东},亚马逊
 	\end{block}
 \begin{block}{讲义和代码}
 {\footnotesize \url{https://github.com/Changhe160/book-cplusplus}} \\
@@ -304,7 +305,7 @@ const double pi;
 			      例如：\\
 			      \begin{lstlisting}[basicstyle=\small\ttfamily]
 const int ci = 10, cj = 1;
-const int *ptrc = &ci; //ptrc 指向常量ci
+const int *ptrc = &ci; //=左边部分从右向左阅读（p.57），ptrc 指向常量ci
         \end{lstlisting}
 		\end{itemize}
 	\end{block}
@@ -347,6 +348,7 @@ cptr = &j;               //错误：不能改变cptr 的指向
 	\ttfamily
 	\begin{block}{指向\texttt{const}对象的\texttt{const}指针}
 		\begin{lstlisting}[basicstyle=\small\ttfamily]
+const int ci = 100;
 const int *const cptrc = &ci;//cptrc 是一个指向常量ci 的常量指针
     \end{lstlisting}
 		\ttfamily 第一个~const~修饰符表明~cptrc~为一个指向~const~对象的指针，第二个~const~修饰符表明~cptrc~不能改变指向
@@ -401,11 +403,11 @@ auto i=0, pi=3.14159;       // 错误：i 和 pi 的类型不一致
 		\begin{lstlisting}[basicstyle=\small\ttfamily]
 int counter = 0;
 int &refCnt = counter;  //refCnt引用counter对象的内容
-int &refCnt2;             //错误：定义引用时必须和一个对象绑定
         \end{lstlisting}
 		\begin{lstlisting}[basicstyle=\small\ttfamily]
-refCnt = 2;       //修改了counter所在的内存空间的内容
-int i = refCnt;//通过引用读取counter对象的内容，并初始化对象i
+refCnt = 2;             //修改了counter所在的内存空间的内容
+int i = refCnt;         //通过引用读取counter对象的内容，并初始化对象i
+int &refCnt2;             //错误：定义引用时必须和一个对象绑定
         \end{lstlisting}
 	\end{block}
 \end{frame}
@@ -428,7 +430,7 @@ int &r3 = d; //错误：r3 只能引用 int 类型对象
 	\begin{block}{3. 引用的对象必须是非\texttt{const}左值:}
 		\begin{lstlisting}[basicstyle=\small\ttfamily]
 int i = 0; const int ci = 0;
-int &r4 = 100, &r5 = i+1, &r6 = ci; //错误：只能引用非 const 左值
+int &r4 = 100, &r5 = i+1, &r6 = ci; //错误：只能引用非 const 左值（p.19）
             \end{lstlisting}
 	\end{block}
 \end{frame}
