@@ -324,10 +324,10 @@ this~指针是一个指向~\textcolor{blue}{const}~对象的~\textcolor{blue}{co
     {6.1.3 定义辅助函数}
 
 \begin{block}<1->{辅助函数}
-一个类需要一些普通函数来辅助完成某些操作，不是类的成员函数，从概念上属于类的接口。
+一个类需要一些普通函数来辅助完成某些操作，不是类的成员函数，从概念上属于类的{\color{red}接口}。
 \begin{itemize}
-  \item 通常将它们的声明和类的定义放到同一个头文件内；
-  \item 定义和类成员函数的定义放到同一个源文件内。
+  \item 将它们的{\color{red}声明}和类的定义放到同一个{\color{red}头文件}内；
+  \item 将它们的{\color{red}定义}和类成员函数的定义放到同一个{\color{red}源文件}内。
 \end{itemize}
 \end{block}
 \begin{blueblock}<2->{示例}
@@ -350,8 +350,8 @@ print(cout,a);//打印0/1
 
 \begin{block}<1->{封装的意义}
 \begin{itemize}
-  \item 类的开发者：有利于程序的模块化设计，提高代码的重用性；
-  \item 类的使用者：隐藏类的实现细节，使用者不能在类的外面操控数据成员，形成一种保护机制。
+  \item 类的{\color{red}开发者}：有利于程序的模块化设计，提高代码的重用性；
+  \item 类的{\color{red}使用者}：隐藏类的实现细节，使用者不能在类的外面操控数据成员，形成一种保护机制。
 \end{itemize}
 \end{block}
 
@@ -372,8 +372,31 @@ print(cout,a);//打印0/1
 \end{frame}
 
 \begin{frame}[fragile]
-    {6.1.4 访问控制}
+    {Fraction类}
+    
+\begin{blueblock}{}
+ \vspace{-0.1em}\begin{lstlisting}
+class Fraction (*@{\color{red}\{}@*)
+    //私有数据成员
+    int m_numerator = 0;            // 分子默认为0； C++11
+    int m_denominator = 1;          //分母默认为1；
+public://公有成员函数
+    int numerator() const { return m_numerator; }
+    int denominator() const { return m_denominator; }
+    double value() const;           //计算分数值
+    void reduce();                  //约分
+private://私有成员函数
+    int gcd(int x, int y);          //求分子分母最大公约数
+(*@{\color{red}\};}@*)
+//辅助函数
+void makeCommon(Fraction &a, Fraction &b);
+ostream& print(ostream &out, const Fraction &f);
+\end{lstlisting}%\vspace{-1.5mm}
+\end{blueblock}
+\end{frame}
 
+\begin{frame}[fragile]
+    {6.1.4 访问控制}
 \begin{greenblock}{下面函数是否正确？}
  \vspace{-2.5mm}\begin{lstlisting}
 ostream& print(ostream &out, const Fraction &f) {
