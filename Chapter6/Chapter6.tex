@@ -612,24 +612,15 @@ Fraction b(1,2);  //使用提供的实参
 \begin{frame}[fragile]
     {6.2.2 复制构造函数}
 
-\begin{blueblock}<1->{示例}
-复制一个已存在对象的内容来创建对象
-\begin{lstlisting}
+\begin{blueblock}<1->{复制对象}
+\vspace{-2.5mm}\begin{lstlisting}
 int i(1), j(i);
 Fraction a(1, 5); //直接初始化
 Fraction b(a);//直接初始化，b 为对象 a 的拷贝
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 
-
-\begin{block}<2->{复制构造函数（copy constructor\index{C!constructor!copy constructor}）}
-\begin{itemize}
-  \item 功能是将给定对象的数据成员依次复制给正在创建的对象；
-  \item 复制构造函数的形参必须是\alert{引用类型}，即给定实参的引用；
-  \item 编译器会自动合成： 逐个成员\alert{按值复制}，数组成员按元素逐个复制。
-\end{itemize}
-\end{block}
-\begin{blueblock}<3->{定义形式}
+\begin{blueblock}<2->{定义形式}
  \vspace{-2.5mm}\begin{lstlisting}
 class Fraction {
 public:
@@ -638,6 +629,15 @@ public:
 };
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
+
+\begin{block}<3->{复制构造函数（copy constructor\index{C!constructor!copy constructor}）}
+\begin{itemize}
+  \item 功能是将给定对象的数据成员依次复制给正在创建的对象；
+  \item 复制构造函数的形参必须是\alert{引用类型}，即给定实参的引用；
+  \item 编译器会自动合成： 逐个成员\alert{按值复制}，数组成员按元素逐个复制。
+\end{itemize}
+\end{block}
+
 \end{frame}
 
 %--------------------
@@ -983,8 +983,8 @@ cout << obj ;
   \item<2->[]
 \begin{blueblock}{调用方式1：}
 \begin{lstlisting}
-Fraction a, b;
-a / b;
+Fraction a(2,3), b(1,2), c;
+c = a / b;
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 \end{itemize}
@@ -993,8 +993,8 @@ a / b;
   \item<3->[]
 \begin{blueblock}{调用方式2：}
 \begin{lstlisting}
-Fraction a, b;
-operator/(a, b);  //与 a / b 等价
+Fraction a(2,3), b(1,2), c;
+c = operator/(a, b);  //与 a / b 等价
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 \end{itemize}
@@ -1035,7 +1035,7 @@ public:
   \item<2->[]
 \begin{blueblock}{调用方式1：}
 \begin{lstlisting}
-Fraction a, b;
+Fraction a(2,3), b(1,2);
 a *= b;
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
@@ -1051,10 +1051,6 @@ a.operator *= (b); //与 a *= b 等价
 \end{blueblock}
 \end{itemize}
 \end{columns}
-
-\begin{redblock}<4->{提示}
-不可重载运算符：::、.、?:~和~.*。
-\end{redblock}
 \end{frame}
 
 
@@ -1345,81 +1341,6 @@ f(3, 5);  //调用函数调用运算符
 \end{redblock}
 
 \end{frame}
-
-%#####################################
- \subsection{类型转换运算符}\label{chap6-3-6}
-\begin{frame}[fragile]
-    {6.3.5 类型转换运算符}
-\begin{block}{类型转换运算符（conversion operator\index{C!conversion operator}）}
-\begin{itemize}
-  \item 将类类型数据转换成其它类型数据；
-  \item 语法格式如下：\\
- \indent operator type () const;\\
-\end{itemize}
-\end{block}
-
-\begin{blueblock}<2->{示例}
-为~Fraction~类添加一个转换为~double~类型的类型转换运算符：
-\begin{lstlisting}
-class Fraction {
-public:
-    Fraction(int above = 0, int below = 1) :
-        m_numerator(above), m_denominator(below) {}
-    operator double() const {
-        return 1.*m_numerator/m_denominator;
-    }
-};
-\end{lstlisting}\vspace{-1.5mm}
-\end{blueblock}
-
-\end{frame}
-
-
-
-\begin{frame}[fragile]
-    {6.3.5 类型转换运算符}
-
-\begin{greenblock}{问题：下面代码是否正确，为什么？}
-
-\begin{itemize}
-  \item<1->[]
-\begin{lstlisting}
-Fraction f = 2;
-\end{lstlisting}\vspace{-1.5mm}
-  \item<2->[]正确，将  \textcolor{blue}{int} 类型隐式转换成 Fraction 类型，然后进行构造。
-  \item<3->[]
-  \begin{lstlisting}
-double x = 1.5 + f;
-\end{lstlisting}\vspace{-1.5mm}
-  \item<4->[] 正确，调用类型转换运算符，将 f 隐式转换成  \textcolor{blue}{double} 类型。
-  \item<5->[]
-  \begin{lstlisting}
-int i = f;
-\end{lstlisting}\vspace{-1.5mm}
- \item<6->[] 正确：首先将 f 隐式转换成  \textcolor{blue}{double} 类型，然后将   \textcolor{blue}{double} 类型 转换为  \textcolor{blue}{int} 类型。
-\end{itemize}
-
-\end{greenblock}
-
-\end{frame}
-
-\begin{frame}[fragile]
-    {6.3.5 类型转换运算符}
-
-
-\begin{block}<1->{类型转换运算符的特点}
-\begin{itemize}
-  \item 以隐式的方式调用；
-  \item 没有显式的返回值类型，也没有形参；
-  \item 必须为类的成员函数；
-  \item 一般将类型转换运算符声明为~ \textcolor{blue}{const}~成员。
-\end{itemize}
-\end{block}
-\begin{redblock}<2->{提示}
-不要过度依赖类型转换运算符。
-\end{redblock}
-\end{frame}
-
 
 
 
