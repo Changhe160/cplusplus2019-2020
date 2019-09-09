@@ -11,7 +11,9 @@ int main() {
 		Fraction a(1, 5);	//直接初始化
 		Fraction b(a);		//直接初始化，b为对象a的拷贝
 		
-		a / b;
+		{
+			Fraction c = a / b;
+		}
 		operator/(a, b);
 
 		a *= b;				//调用重载的 * =

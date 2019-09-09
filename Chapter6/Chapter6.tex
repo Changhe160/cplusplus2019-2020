@@ -1304,25 +1304,36 @@ public:
 };
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
-
+\begin{columns}
+\column{0.48\textwidth}
 \begin{blueblock}<2->{前置递增}
  \vspace{-2.5mm}\begin{lstlisting}
 Fraction& Fraction::operator++() {
-    ++m_numerator;                         //分子加1
-    return *this;                          //为了与内置版本行为一致，前置递增运算符返回对象的引用
+    ++m_numerator;               //分子加1
+    return *this;                //返回调用对象的引用
 }
+//
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
-
+\column{0.48\textwidth}
 \begin{blueblock}<3->{后置递增}
  \vspace{-2.5mm}\begin{lstlisting}
-Fraction Fraction::operator++(int) {    //形参仅为区别于前置版本
-    Fraction a(*this);                      //保存当前值
-    m_numerator++;                          //分子加1
-    return a;                               //以值返回方式返回局部对象
+Fraction Fraction::operator++(int) {    
+    Fraction a(*this);       //保存调用对象
+    m_numerator++;           //分子加1
+    return a;                //返回保存的副本
 }
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
+\end{columns}
+
+\begin{greenblock}<4->{示例}
+ \vspace{-2.5mm}\begin{lstlisting}
+    Fraction a(1, 5);       //直接初始化
+    a++;
+    ++a;
+\end{lstlisting}\vspace{-1.5mm}
+\end{greenblock}
 \end{frame}
 
 %#####################################
@@ -1378,7 +1389,7 @@ cout<<f<<endl;   //输出3/5
     {6.4.1 声明静态成员}
 
 \begin{blueblock}<1->{示例：声明静态成员}
-利用关键字~ \textcolor{blue}{static}~为~Fraction~类添加一个静态成员
+利用关键字~ \textcolor{blue}{static}~为~Fraction~类添加静态成员
 \begin{lstlisting}
 class PartTimeWorker {
     string m_name;                  //员工姓名
@@ -1386,9 +1397,7 @@ class PartTimeWorker {
     static double ms_payRate;       //小时工资
 public:
     double salary();
-    static double rate() {
-        return ms_payRate;
-    }
+    static double rate() {     return ms_payRate;    }
     static void initRate(double rate);
 };
 \end{lstlisting}\vspace{-1.5mm}

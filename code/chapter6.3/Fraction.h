@@ -24,7 +24,7 @@ public:
 
 	Fraction(int a = 0, int b = 1);		//默认的构造函数
 	Fraction(const Fraction &rhs);		//拷贝构造函数
-	~Fraction() {}
+	~Fraction() { cout << "destr." << endl; }
 	
 	void reverse();			//倒置
 	Fraction reciprocal()const;			//求倒数

@@ -14,10 +14,10 @@ int Fraction::gcd(int x, int y)//Õ·×ªÏà³ý·¨
 }
 Fraction::Fraction(int a, int b)
 	:m_numerator(a), m_denominator(b) {
-
+	cout << "const." << endl;
 }
 Fraction::Fraction(const Fraction& rhs) : m_numerator(rhs.m_numerator), m_denominator(rhs.m_denominator) {
-	
+	cout << "copy const." << endl;
 }
 Fraction& Fraction::operator=(const Fraction &rhs) {
 	
