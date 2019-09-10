@@ -116,8 +116,8 @@
 \begin{block}{学习目标}
 \begin{enumerate}
   \item 掌握模板的定义和基本使用方法，包括函数模板和类模板；
-  \item 学会运用模板实现泛型编程；
-  \item 掌握常用排序算法和二分查找算法。
+  \item 学会运用模板{\color{red}实现泛型编程}；
+  \item 掌握常用{\color{red}排序算法}和{\color{red}二分查找算法}。
 \end{enumerate}
 \end{block}
 
@@ -168,14 +168,14 @@
 \column{0.65\textwidth}
 \begin{blueblock}<2->{\texttt{getMax}函数定义一}
 \vspace{-1.5mm}\begin{lstlisting}
-const int & getMax(const int &a, const int &b){
+const int& getMax(const int &a, const int &b){
     return a>b ? a : b;
 }
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 \begin{blueblock}<2->{\texttt{getMax}函数定义二}
 \vspace{-1.5mm}\begin{lstlisting}
-const string & getMax(const string &a, const string &b){
+const string& getMax(const string &a, const string &b){
     return a>b ? a : b;
 }
 \end{lstlisting}\vspace{-1.5mm}
@@ -206,7 +206,7 @@ const string & getMax(const string &a, const string &b){
 \begin{blueblock}{\texttt{getMax}函数模板定义}
 \begin{lstlisting}[moreemph={T}]
 template <typename T>
-const T & getMax(const T &a, const T &b){
+const T& getMax(const T &a, const T &b){
     return a>b ? a : b;
 }
 \end{lstlisting}
@@ -245,7 +245,7 @@ cout << getMax(1.0, 2.5) << endl; // T被推断为double
 \end{lstlisting}
 生成如下函数实例
 \begin{lstlisting}
-const double & getMax(const double &a, const double &b){
+const double& getMax(const double &a, const double &b){
     return a>b ? a : b;
 }
 \end{lstlisting}
@@ -287,11 +287,20 @@ Fraction a(3,4),b(2,5);
 cout << getMax(a, b) << endl; // T为Fraction类型
 \end{lstlisting}
 \end{blueblock}
+
+\begin{blueblock}<3->{实例化代码}
+\begin{lstlisting}
+const Fraction& getMax(const Fraction &a, const Fraction &b){
+    return a>b ? a : b;
+}
+\end{lstlisting}
+\end{blueblock}
+
 \column{0.3\textwidth}
-\begin{greenblock}<3->{问题}
+\begin{greenblock}<4->{问题}
 在编译上面代码时提示编译错误，原因可能是什么？
 \end{greenblock}
-\begin{greenblock}<4->{答案}
+\begin{greenblock}<5->{答案}
 在\texttt{getMax}模板内部用到了关系\texttt{>}运算，但\texttt{Fraction}类不支持关系\texttt{>}运算
 \end{greenblock}
 \end{columns}
@@ -433,7 +442,7 @@ getMax(&a, &b);
 \begin{blueblock}{\texttt{getMax}定义一}
 \begin{lstlisting}[moreemph={T}]
 template <typename T>
-const T & getMax(const T &a, const T &b){
+const T& getMax(const T &a, const T &b){
     return a > b ? a : b;
 }
 \end{lstlisting}
@@ -493,7 +502,7 @@ T* const & getMax( T* const &a, T* const &b){
 
 \begin{frame}[fragile]{7.1.3~模板参数类型\normalsize{~---~模板重载与特化}}
 
-进一步，如果调用的实参是指向字符串的指针：
+进一步，如果调用的实参是指向字符串常量的指针：
 
 \vspace{-4mm}
 
@@ -772,6 +781,61 @@ $\bullet$ 当参数包里面只剩下一个参数时，非可变参模板与可�
 
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{4.1 引用\small{—右值引用}}
+	% \framesubtitle{——右值引用}
+	\begin{block}{右值引用定义:}
+		必须绑定到右值的引用（只能绑定到一个将要销毁的对象），通过\texttt{\&\&}实现。
+	\end{block}
+	\begin{block}{右值引用语法格式为:}
+		\begin{lstlisting}[basicstyle=\small\ttfamily]
+int i = 0;
+int &&rr1 = i+1; //正确：rr1 为右值引用，绑定到一个临时对象
+int &&rr2 = i;      //错误：rr2 为右值引用，不能绑定到左值对象
+        \end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{4.1 引用\small{—右值引用}}
+	% \framesubtitle{——右值引用}
+	\begin{block}{右值引用功能}
+		\begin{itemize}
+			\item 程序员可以\alert{操纵右值对象}，尤其是临时对象
+			\item 可以通过右值引用\alert{获取}即将消亡的右值对象的\alert{资源}\\
+		\end{itemize}
+	\end{block}
+	\begin{greenblock}{思考：}
+		\ttfamily
+		以下代码会出现什么情况？为什么？
+		\begin{lstlisting}[basicstyle=\small\ttfamily]
+int &&rr1 = 10 + 1; //rr1 为右值引用
+int &&rr3 = rr1;
+    \end{lstlisting}
+		\onslide<2->{\textcolor[rgb]{1,0,0}{编译器报错：rr1 为左值，rr3 不能绑定到左值对象}}
+	\end{greenblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{4.1 引用\small{—右值引用}}
+	% \framesubtitle{——右值引用}
+	\begin{block}{将左值显式转换成右值}
+		\begin{lstlisting}[basicstyle=\small\ttfamily]
+int &&rr3 = std::move(rr1); //将rr1 转换成右值
+        \end{lstlisting}
+		有时候有些左值对象具有“临时性”,可以像右值一样使用。如函数形参
+	\end{block}
+	\begin{block}{通用引用}
+		右值引用声明\texttt{\&\&}与类型推导结合，变成一种\alert{通用引用类型}，可与右值或左值绑定：
+		\begin{lstlisting}[basicstyle=\small\ttfamily]
+int i = 0;
+auto &&rr1 = 10; //rr1 为右值引用
+auto &&rr2 = i;    //rr2 为左值引用
+        \end{lstlisting}
+	\end{block}
+\end{frame}
+
+
 %-----------------
 
 \begin{frame}[fragile]{7.1.5~可变参函数模板\normalsize{~---~转发参数包}}
@@ -854,7 +918,7 @@ forwardValue(a); // 正确
 
 \column{0.3\textwidth}
 \begin{yellowblock}<3->{说明}
-$\bullet$ 当传入\texttt{forwardValue}的实参为右值，\texttt{T}被推断为非引用类型，forward<T>返回右值引用
+$\bullet$ 当传入\texttt{forwardValue}的实参为右值，\texttt{T}被推断为非引用类型，forward<T>返回右值引用\\
 $\bullet$ 当传入\texttt{forwardValue}的实参为左值，\texttt{T}被推断为左值引用类型，此时\texttt{forward<T>}将返回左值引用
 \end{yellowblock}
 \vspace{-2mm}
