@@ -67,7 +67,7 @@
     breaklines,                                                           % 控制是否折行
     postbreak=\space,                                                     % 控制折行后显示的标识字符
     breakindent=5pt,                                                      % 控制折行后缩进数量
-    emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple}, % 非内置类型
+    emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple,constexpr}, % 非内置类型
     emphstyle={\color{teal}},
     escapeinside={(*@}{@*)},
 }
@@ -695,91 +695,9 @@ $\bullet$ 第二条\texttt{reset}函数调用中\texttt{T}被推断为\texttt{do
 
 \end{frame}
 %-----------------
-
 %-------------------------------------
-\subsection{可变参函数模板}
+\subsection{{\color{red}右值引用}}
 %-------------------------------------
-
-%-----------------
-\begin{frame}[fragile]{7.1.5~可变参函数模板}
-
-C++11新标准允许我们使用\alert{数目可变}的模板参数：
-
-\vspace{-4mm}
-
-\begin{columns}[t]
-
-\column{0.65\textwidth}
-\begin{blueblock}{\texttt{foo}函数定义}
-\begin{lstlisting}[moreemph={T}]
-template<typename... Args >
-    void foo(Args... args) {
-    // 打印参数包args中参数的个数
-    cout << sizeof...(args) << endl;
-}
-\end{lstlisting}
-\end{blueblock}
-\begin{blueblock}<2->{\texttt{foo}函数调用}
-\begin{lstlisting}[moreemph={T}]
-foo(); // 输出：0
-foo(1,1.5); // 输出：2
-foo(1,1.5,"C++"); // 输出：3
-\end{lstlisting}
-\end{blueblock}
-
-\column{0.3\textwidth}
-\begin{yellowblock}{说明}
-$\bullet$ 可变数目的参数称为\alert{参数包}，用省略号“\alert{\texttt{...}}”表示，可包含0到任意个模板参数\\
-$\bullet$ \texttt{foo}函数的形参\texttt{args}为模板参数包类型，接受可变数目的实参
-\end{yellowblock}
-
-\end{columns}
-
-\end{frame}
-
-%-----------------
-
-\begin{frame}[fragile]{7.1.5~可变参函数模板\normalsize{~---~包展开}}
-
-可以通过\alert{递归}的方式展开函数模板参数包：
-
-\vspace{-4mm}
-
-\begin{columns}[t]
-
-\column{0.65\textwidth}
-\begin{blueblock}{\texttt{print}函数定义}
-\vspace{-2mm}\begin{lstlisting}[moreemph={T}]
-template<typename T, typename... Args>
-ostream& print(ostream &os, const T &t, const Args&... rest) {
-    os << t << " "; // 打印第一个参数
-    return print(os, rest...); // 递归调用
-}
-
-template<typename T>
-ostream& print(ostream &os, const T &t) {
-    return os << t; // 打印最后一个参数
-}
-\end{lstlisting}\vspace{-2mm}
-\end{blueblock}
-\begin{blueblock}<2->{\texttt{print}函数调用}
-\vspace{-1.5mm}\begin{lstlisting}[moreemph={T}]
-print(cout,1, 2.5, "C++") << endl; // 输出1 2.5 C++
-\end{lstlisting}\vspace{-1.5mm}
-\end{blueblock}
-
-\column{0.3\textwidth}
-\begin{yellowblock}{说明}
-$\bullet$ 第一次处理参数包中的第一个参数，然后用剩余参数调用自身\\
-$\bullet$ 当参数包里面只剩下一个参数时，非可变参模板与可变参模板都匹配，但是非可变参模板更特例化，编译器首选非可变参数版本
-\end{yellowblock}
-\begin{greenblock}<3->{问题}
-\texttt{print}函数的形参是左值引用，如果是右值引用呢？
-\end{greenblock}
-
-\end{columns}
-
-\end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{4.1 引用\small{—右值引用}}
@@ -836,6 +754,11 @@ auto &&rr2 = i;    //rr2 为左值引用
 \end{frame}
 
 
+%-------------------------------------
+\subsection{可变参函数模板}
+%-------------------------------------
+
+
 %-----------------
 
 \begin{frame}[fragile]{7.1.5~可变参函数模板\normalsize{~---~转发参数包}}
@@ -884,105 +807,41 @@ $\bullet$ \texttt{rvalue}函数只接受右值形参，但\texttt{val}是左值
 \end{frame}
 
 %-----------------
+\begin{frame}[fragile]{7.1.5~可变参函数模板}
 
-\begin{frame}[fragile]{7.1.5~可变参函数模板\normalsize{~---~转发参数包}}
-
-在C++11新标准下可以利用~\alert{\texttt{std::forward}}~函数实现：
+C++11新标准允许我们使用\alert{数目可变}的模板参数：
 
 \vspace{-4mm}
 
 \begin{columns}[t]
 
 \column{0.65\textwidth}
-\begin{blueblock}{\texttt{std::forward}转发左值描述性声明}
-\vspace{-2mm}\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,moreemph={T}]
-template<typename T>
-T&& forward( typename std::remove_reference<T>::type& t );
-\end{lstlisting}\vspace{-2mm}
-\end{blueblock}
-\begin{blueblock}<2->{\texttt{forwardValue}函数定义二}
-\vspace{-2mm}\begin{lstlisting}[moreemph={T}]
-template<typename T>
-void forwardValue(T &&val) {
-    rvalue(std::forward<T>(val));
+\begin{blueblock}{\texttt{foo}函数定义}
+\begin{lstlisting}[moreemph={T}]
+template<typename... Args >
+    void foo(Args... args) {
+    // 打印参数包args中参数的个数
+    cout << sizeof...(args) << endl;
 }
-\end{lstlisting}\vspace{-2mm}
+\end{lstlisting}
 \end{blueblock}
-\begin{blueblock}<2->{\texttt{forwardValue}函数调用二}
-\vspace{-2mm}\begin{lstlisting}[moreemph={T}]
-forwardValue(42); // 正确
-int a = 42;
-forwardValue(a); // 正确
-\end{lstlisting}\vspace{-2mm}
+\begin{blueblock}<2->{\texttt{foo}函数调用}
+\begin{lstlisting}[moreemph={T}]
+foo(); // 输出：0
+foo(1,1.5); // 输出：2
+foo(1,1.5,"C++"); // 输出：3
+\end{lstlisting}
 \end{blueblock}
 
 \column{0.3\textwidth}
-\begin{yellowblock}<3->{说明}
-$\bullet$ 当传入\texttt{forwardValue}的实参为右值，\texttt{T}被推断为非引用类型，forward<T>返回右值引用\\
-$\bullet$ 当传入\texttt{forwardValue}的实参为左值，\texttt{T}被推断为左值引用类型，此时\texttt{forward<T>}将返回左值引用
-\end{yellowblock}
-\vspace{-2mm}
-\begin{redblock}<4->{注意}
-在C++11新标准下，\\
-\texttt{\&\& \&和\& \&\&}折叠为 \texttt{\&}
-\end{redblock}
-
-\end{columns}
-
-\end{frame}
-
-%-----------------
-
-\begin{frame}[fragile]{7.1.5~可变参函数模板\normalsize{~---~转发参数包}}
-
-可以组合使用可变参模板与\texttt{forward}函数，实现\alert{参数包完美转发}：
-
-\vspace{-4mm}
-
-\begin{columns}[t]
-
-\column{0.5\textwidth}
-\begin{blueblock}<2->{\texttt{fun}函数定义二和\texttt{foo}函数定义二}
-\vspace{-2mm}\begin{lstlisting}[moreemph={Args}]
-void foo(const string &s, int &&i) {
-    cout << s << i << endl;
-}
-template<typename... Args>
-void fun(Args&&... args) {
-    foo(std::forward<Args>(args)...);
-}
-\end{lstlisting}\vspace{-2mm}
-\end{blueblock}
-\uncover<3->{当进行如下调用：}
-\begin{blueblock}<3->{\texttt{fun}函数调用}
-\vspace{-2.5mm}\begin{lstlisting}[moreemph={T}]
-fun("abc", 42);
-\end{lstlisting}\vspace{-2mm}
-\end{blueblock}
-
-\column{0.45\textwidth}
-\begin{yellowblock}<2->{说明}
-\texttt{std::forward<Args>(args)...}\\
-相当于：\\
-\texttt{std::forward<$T_i$>($t_i$)}\\
-其中$T_i$为参数包中第$i$个参数$t_i$的类型
+\begin{yellowblock}{说明}
+$\bullet$ 可变数目的参数称为\alert{参数包}，用省略号“\alert{\texttt{...}}”表示，可包含0到任意个模板参数\\
+$\bullet$ \texttt{foo}函数的形参\texttt{args}为模板参数包类型，接受可变数目的实参
 \end{yellowblock}
 
 \end{columns}
 
-\vspace{3mm}
-
-\uncover<3->{\texttt{foo}函数的实参将扩展为：}
-
-\begin{blueblock}<3->{}
-\vspace{-2.5mm}\begin{lstlisting}[moreemph={T}]
-std::forward<const char * >("abc"), std::forward<int>(42)
-\end{lstlisting}\vspace{-2mm}
-\end{blueblock}
-
 \end{frame}
-
-%-----------------
 
 %###############################################################################
 \section{类模板}
@@ -1270,7 +1129,7 @@ public:
 $\bullet$ \texttt{sort}的\alert{函数参数}~\texttt{f}也有默认值，即\texttt{F}类的一个函数对象，代表默认比较方式为\texttt{Less}
 \end{yellowblock}
 \begin{greenblock}<2->{问题}
-理清~\alert{函数参数}、\alert{模板参数}、\alert{类模板参数}、\alert{函数模板参数}~的概念
+理清~\alert{函数参数}和\alert{模板参数}的概念
 \end{greenblock}
 
 \end{columns}
