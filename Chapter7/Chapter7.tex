@@ -15,7 +15,7 @@
 %	PACKAGES AND THEMES
 %----------------------------------------------------------------------------------------
 
-\documentclass[aspectratio=43,UTF8,10pt,t]{ctexbeamer}
+\documentclass[aspectratio=169,UTF8,10pt,t]{ctexbeamer}
 
 \mode<presentation> {
 \usetheme{Madrid}
@@ -1200,13 +1200,13 @@ private:
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{selection_sort_1}\\\vspace{3mm}
-\uncover<2->{\includegraphics[width=0.8\textwidth]{selection_sort_2}}\\\vspace{-8.9mm}
+\uncover<2->{\includegraphics[width=0.8\textwidth]{selection_sort_2}}\\\vspace{-11mm}
 \uncover<3->{\includegraphics[width=0.8\textwidth]{selection_sort_3}}\\
-\uncover<4->{\includegraphics[width=0.8\textwidth]{selection_sort_4}}\\\vspace{-8.9mm}
+\uncover<4->{\includegraphics[width=0.8\textwidth]{selection_sort_4}}\\\vspace{-11mm}
 \uncover<5->{\includegraphics[width=0.8\textwidth]{selection_sort_5}}\\
-\uncover<6->{\includegraphics[width=0.8\textwidth]{selection_sort_6}}\\\vspace{-8.9mm}
+\uncover<6->{\includegraphics[width=0.8\textwidth]{selection_sort_6}}\\\vspace{-11mm}
 \uncover<7->{\includegraphics[width=0.8\textwidth]{selection_sort_7}}\\
-\uncover<8->{\includegraphics[width=0.8\textwidth]{selection_sort_8}}\\\vspace{-8.9mm}
+\uncover<8->{\includegraphics[width=0.8\textwidth]{selection_sort_8}}\\\vspace{-11mm}
 \uncover<9->{\includegraphics[width=0.8\textwidth]{selection_sort_9}}\\\vspace{3mm}
 \uncover<10->{\includegraphics[width=0.8\textwidth]{selection_sort_10}}
 \end{center}
@@ -1261,16 +1261,16 @@ void Array<T, N>::selectionSort(F f) {
 \begin{center}
 \includegraphics[width=0.8\textwidth]{insertion_sort_1}\\\vspace{3mm}
 \uncover<2->{\includegraphics[width=0.8\textwidth]{insertion_sort_2}}\\
-\uncover<3->{\includegraphics[width=0.8\textwidth]{insertion_sort_3}}\\\vspace{-8.73mm}
-\uncover<4->{\includegraphics[width=0.8\textwidth]{insertion_sort_4}}\\\vspace{-8.73mm}
+\uncover<3->{\includegraphics[width=0.8\textwidth]{insertion_sort_3}}\\\vspace{-10.9mm}
+\uncover<4->{\includegraphics[width=0.8\textwidth]{insertion_sort_4}}\\\vspace{-10.9mm}
 \uncover<5->{\includegraphics[width=0.8\textwidth]{insertion_sort_5}}\\
-\uncover<6->{\includegraphics[width=0.8\textwidth]{insertion_sort_6}}\\\vspace{-8.73mm}
-\uncover<7->{\includegraphics[width=0.8\textwidth]{insertion_sort_7}}\\\vspace{-8.73mm}
+\uncover<6->{\includegraphics[width=0.8\textwidth]{insertion_sort_6}}\\\vspace{-10.9mm}
+\uncover<7->{\includegraphics[width=0.8\textwidth]{insertion_sort_7}}\\\vspace{-10.9mm}
 \uncover<8->{\includegraphics[width=0.8\textwidth]{insertion_sort_8}}\\
-\uncover<9->{\includegraphics[width=0.8\textwidth]{insertion_sort_9}}\\\vspace{-8.73mm}
-\uncover<10->{\includegraphics[width=0.8\textwidth]{insertion_sort_10}}\\\vspace{-8.73mm}
+\uncover<9->{\includegraphics[width=0.8\textwidth]{insertion_sort_9}}\\\vspace{-10.9mm}
+\uncover<10->{\includegraphics[width=0.8\textwidth]{insertion_sort_10}}\\\vspace{-10.9mm}
 \uncover<11->{\includegraphics[width=0.8\textwidth]{insertion_sort_11}}\\\vspace{3mm}
-\uncover<12->{\includegraphics[width=0.8\textwidth]{insertion_sort_12}}\\\vspace{-8.73mm}
+\uncover<12->{\includegraphics[width=0.8\textwidth]{insertion_sort_12}}\\\vspace{-10.9mm}
 \uncover<13->{\includegraphics[width=0.8\textwidth]{insertion_sort_13}}
 \end{center}
 
@@ -1321,11 +1321,11 @@ void Array<T, N>::insertionSort(F f) {
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{bubble_sort_1}\\\vspace{3mm}
-\uncover<2->{\includegraphics[width=0.8\textwidth]{bubble_sort_2}}\\\vspace{-8.73mm}
+\uncover<2->{\includegraphics[width=0.8\textwidth]{bubble_sort_2}}\\\vspace{-10.9mm}
 \uncover<3->{\includegraphics[width=0.8\textwidth]{bubble_sort_3}}\\
-\uncover<4->{\includegraphics[width=0.8\textwidth]{bubble_sort_4}}\\\vspace{-8.73mm}
+\uncover<4->{\includegraphics[width=0.8\textwidth]{bubble_sort_4}}\\\vspace{-10.9mm}
 \uncover<5->{\includegraphics[width=0.8\textwidth]{bubble_sort_5}}\\
-\uncover<6->{\includegraphics[width=0.8\textwidth]{bubble_sort_6}}\\\vspace{-8.73mm}
+\uncover<6->{\includegraphics[width=0.8\textwidth]{bubble_sort_6}}\\\vspace{-10.9mm}
 \uncover<7->{\includegraphics[width=0.8\textwidth]{bubble_sort_7}}\\
 \uncover<8->{\includegraphics[width=0.8\textwidth]{bubble_sort_8}}\\\vspace{3mm}
 \uncover<9->{\includegraphics[width=0.8\textwidth]{bubble_sort_9}}
@@ -1367,6 +1367,81 @@ void Array<T, N>::bubbleSort(F f){
 
 %-----------------
 
+\begin{frame}[fragile]{7.3.1 排序算法\normalsize{~---~快速排序}}
+
+\begin{block}<1->{快速排序}
+ 快速排序是冒泡排序的改进，在排序过程中数据移动少。\\
+\end{block}
+\begin{block}<2->{快速排序的基本思想}
+基本思想：划分和分治递归。\\
+   \begin{enumerate}
+     \item 划分：将整个数组划分为两个部分，第一部分所有值小于基准值（key），第二部分所以值大于基准值（key）。(基准值的选择是随机的，一般选择待排数组的第一个元素）。
+     \item 分治递归：第一步将数组划分为两部分后，两部分内部还不是有序的，再分别对两部分递归地进行快速排序，最终得到一个完整的有序数组
+   \end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{7.3.1 快速排序}
+
+\begin{block}{快速排序的流程}
+（1）left、right指针（索引）分别指向待排数组的首、尾。\\
+（2）left 指针向后遍历，right指针向前遍历。\\
+（3）当right指针指向元素小于基准值（key）时，right指针元素便赋值给left指针元素，完成转移。\\
+（4）当left指针指向元素大于基准值（key）时，left指针元素便赋值给right指针元素，完成转移。\\
+（5）最终当left=right时，遍历结束。\\
+（6）以基准值（key）为界限，把数组分成两部分，分别对这两部分进行快速排序(显然这是一个递归的过程)\\
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{7.3.1 快速排序}
+\begin{center}
+ \includegraphics[scale=0.38]{quick_sort_1.png}\\
+\includegraphics[scale=0.38]{quick_sort_2.png}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]{7.3.1快速排序}
+\begin{block}{快速排序的举例续}
+\end{block}
+\begin{center}
+\includegraphics[scale=0.38]{quick_sort_6.png}
+\includegraphics[scale=0.38]{quick_sort_7.png}
+\end{center}
+\end{frame}
+
+%\begin{frame}[fragile]{7.3.1 快速排序}
+%\begin{block}{快速排序的小技巧}
+%（1）若以数组的第一个元素为基准值，则应该先用right向左遍历，然后再用left向右遍历。\\
+%~\\
+%（2）若以数组的最后一个元素为基准值，则应该先用left向右遍历，然后再用right向左遍历。\\
+%~\\
+%（3）一般不建议用数组中间的元素做基准值，但也可以用。\\
+%~\\
+%\end{block}
+%
+%\end{frame}
+%\begin{frame}[fragile]{7.3.1 快速排序}
+%~\\
+%~\\
+%\begin{center}
+%\includegraphics[scale=0.3]{quick_sort_3.png}
+%\end{center}
+%\end{frame}
+%\begin{frame}[fragile]{7.3.1快速排序}
+%~\\
+%~\\
+%\begin{center}
+%\includegraphics[scale=0.3]{quick_sort_4.png}
+%\end{center}
+%\end{frame}
+
+\begin{frame}[fragile]{7.3.1 快速排序}
+~\\
+~\\
+\begin{center}
+\includegraphics[scale=0.3]{quick_sort_5.png}
+\end{center}
+\end{frame}
+
 %-------------------------------------
 \subsection{二分查找算法}
 %-------------------------------------
@@ -1381,19 +1456,19 @@ void Array<T, N>::bubbleSort(F f){
 
 \begin{center}
 \uncover<2->{\includegraphics[width=0.8\textwidth]{binary_search_1}}\\\vspace{3mm}
-\uncover<3->{\includegraphics[width=0.8\textwidth]{binary_search_2}}\\\vspace{-8.22mm}
-\uncover<4->{\includegraphics[width=0.8\textwidth]{binary_search_3}}\\\vspace{-8.22mm}
-\uncover<5->{\includegraphics[width=0.8\textwidth]{binary_search_4}}\\\vspace{-8.22mm}
-\uncover<6->{\includegraphics[width=0.8\textwidth]{binary_search_5}}\\\vspace{-8.22mm}
+\uncover<3->{\includegraphics[width=0.8\textwidth]{binary_search_2}}\\\vspace{-10.2mm}
+\uncover<4->{\includegraphics[width=0.8\textwidth]{binary_search_3}}\\\vspace{-10.2mm}
+\uncover<5->{\includegraphics[width=0.8\textwidth]{binary_search_4}}\\\vspace{-10.2mm}
+\uncover<6->{\includegraphics[width=0.8\textwidth]{binary_search_5}}\\\vspace{-10.mm}
 \uncover<7->{\includegraphics[width=0.8\textwidth]{binary_search_6}}\\\vspace{12mm}
 \uncover<8->{\includegraphics[width=0.8\textwidth]{binary_search_7}}\\\vspace{3mm}
-\uncover<9->{\includegraphics[width=0.8\textwidth]{binary_search_8}}\\\vspace{-8.22mm}
-\uncover<10->{\includegraphics[width=0.8\textwidth]{binary_search_9}}\\\vspace{-8.22mm}
-\uncover<11->{\includegraphics[width=0.8\textwidth]{binary_search_10}}\\\vspace{-8.22mm}
-\uncover<12->{\includegraphics[width=0.8\textwidth]{binary_search_11}}\\\vspace{-8.22mm}
-\uncover<13->{\includegraphics[width=0.8\textwidth]{binary_search_12}}\\\vspace{-8.22mm}
-\uncover<14->{\includegraphics[width=0.8\textwidth]{binary_search_13}}\\\vspace{-8.22mm}
-\uncover<15->{\includegraphics[width=0.8\textwidth]{binary_search_14}}\\\vspace{-8.22mm}
+\uncover<9->{\includegraphics[width=0.8\textwidth]{binary_search_8}}\\\vspace{-10.mm}
+\uncover<10->{\includegraphics[width=0.8\textwidth]{binary_search_9}}\\\vspace{-10.mm}
+\uncover<11->{\includegraphics[width=0.8\textwidth]{binary_search_10}}\\\vspace{-10mm}
+\uncover<12->{\includegraphics[width=0.8\textwidth]{binary_search_11}}\\\vspace{-10.mm}
+\uncover<13->{\includegraphics[width=0.8\textwidth]{binary_search_12}}\\\vspace{-10.mm}
+\uncover<14->{\includegraphics[width=0.8\textwidth]{binary_search_13}}\\\vspace{-10.mm}
+\uncover<15->{\includegraphics[width=0.8\textwidth]{binary_search_14}}\\\vspace{-10.mm}
 \end{center}
 
 \end{frame}
@@ -1452,6 +1527,13 @@ $\bullet$ 如果查找失败则返回\texttt{-1}
 \begin{frame}[c]{~}
 \begin{center}
   \huge{本章结束}
+  \begin{block}{上机作业}
+ \begin{enumerate}
+   \item 实验指导书：第七章
+   \item 检查日期：待定
+   \item 地点：与助教协商
+ \end{enumerate}
+\end{block}
 \end{center}
 \end{frame}
 
