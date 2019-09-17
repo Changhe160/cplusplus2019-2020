@@ -48,6 +48,7 @@ int main(){
 		{
 			unique_ptr<string> p1; //p1为nullptr
 			unique_ptr<int> p2(new int(207)); //直接初始化方式创建p2
+			unique_ptr<int> p3=make_unique<int>(207); //直接初始化方式创建p2 C++
 		} //p1和p2离开作用域，被销毁，同时释放其指向的动态内存
 	}
 	{//8.1.3
@@ -64,8 +65,10 @@ int main(){
 	{//8.1.3
 		unique_ptr<int> p1(new int(207));
 		unique_ptr<int> p2(p1.release());
+		cout << *p2 << endl;
 		unique_ptr<int> p3(new int(105));
 		p3.reset(p2.release());
+		cout << *p3 << endl;
 	}
 	{//8.1.3
 	 //shared_ptr<int> p1 = new int(105); //错误：必须使用直接初始化的形式
@@ -97,18 +100,17 @@ int main(){
 	{//8.1.4
 		int n = 5;
 		int *pa = new int[n];
-	}
-	{
+	
 		int *pa1 = new int[5]; //5个未定义的int
 		int *pa2 = new int[5](); //5个值为0的int
-	}
-	{
 		int *pa3 = new int[5]{ 1,2,3,4,5 };
-	}
-	{
-		int *pa1 = new int[5];
-		delete[] pa1; //pa1必须为指向动态分配的数组或为空
-					  //delete pa1; //错误：产生未定义的行为
+	
+
+		delete[] pa; //pa必须为指向动态分配的数组或为空
+					  //delete pa; //错误：产生未定义的行为
+		delete[] pa1;
+		delete[] pa2;
+		delete[] pa3;
 	}
 
 }
