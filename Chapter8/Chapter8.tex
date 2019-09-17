@@ -15,7 +15,7 @@
 %	PACKAGES AND THEMES
 %----------------------------------------------------------------------------------------
 
-\documentclass[aspectratio=43,UTF8,10pt,t]{ctexbeamer}
+\documentclass[aspectratio=169,UTF8,10pt,t]{ctexbeamer}
 
 \mode<presentation> {
 \usetheme{Madrid}
@@ -270,7 +270,7 @@ C++语言使用~\alert{运算符\texttt{delete}}~来释放动态内存：
 \column{0.65\textwidth}
 \begin{blueblock}<2->{释放动态内存一}
 \vspace{-2.5mm}\begin{lstlisting}[moreemph={}]
-TYPE *P = new TYPE;
+TYPE *p = new TYPE;
 delete p;
 \end{lstlisting}\vspace{-2mm}
 \end{blueblock}
@@ -286,7 +286,7 @@ $\bullet$~如果\texttt{p}指向的是类类型对象则调用其析构函数
 \vspace{4mm}
 
 \uncover<3->{
-释放一块非\texttt{new}分配的内存、同一内存多次释放或者使用一个已经释放的内存，其行为都是未定义的：}
+释放一块{\color{red}非\texttt{new}分配的内存、同一内存多次释放或者使用一个已经释放的内存}，其行为都是未定义的：}
 
 \vspace{-4mm}
 
@@ -431,33 +431,38 @@ void foo(int i) {
 {
     unique_ptr<string> p1; // p1为nullptr
     unique_ptr<int> p2(new int(207));
-} // p1和p2离开作用域，被销毁，同时释放其指向的动态内存
+    unique_ptr<Fraction> p3 = make_unique<Fraction>(1,2); //C++14
+} // p1、p2和p3离开作用域，被销毁，释放其拥有的动态内存
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 
-\column{0.3\textwidth}
-\begin{yellowblock}<2->{说明}
-当\texttt{p2}消亡时，\texttt{p2}所指向的对象也会消亡，完成动态内存的自动释放
-\end{yellowblock}
-
-\end{columns}
-
-\vspace{4mm}
-
-\uncover<3->{智能指针的使用和普通指针类似，解引用时返回其指向的对象：}
-
-\vspace{-4mm}
-
-\begin{columns}[t]
-
-\column{0.65\textwidth}
 \begin{blueblock}<4->{\texttt{unique\_ptr}使用一}
+智能指针的使用和普通指针类似，解引用时返回其指向的对象：
 \vspace{-1.5mm}\begin{lstlisting}[moreemph={unique\_ptr}]
 unique_ptr<string> p1(new string("Mandy"));
 if(p1 && p1->empty()) // 指针p1非空且其指向非空string
     *p1 = "Lisha"; // *p1为解引用
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
+
+\column{0.3\textwidth}
+\begin{yellowblock}<2->{说明}
+当\texttt{p2}消亡时，\texttt{p2}所指向的对象也会消亡，完成动态内存的自动释放\\
+函数模板make\_unique模板参数为指针指向的类型，实参为类型构造函数参数
+\end{yellowblock}
+
+\end{columns}
+
+\vspace{4mm}
+
+
+
+\vspace{-4mm}
+
+\begin{columns}[t]
+
+
+
 
 \column{0.3\textwidth}
 
@@ -510,21 +515,32 @@ p3 = p2; //错误
 \begin{lstlisting}[moreemph={unique\_ptr}]
 unique_ptr<int> p1(new int(207));
 unique_ptr<int> p2(p1.release());
+cout << *p2 << endl;
 \end{lstlisting}
+\vspace{-1.5mm}
 \end{blueblock}
 \begin{blueblock}<3->{\texttt{unique\_ptr}对象调用\texttt{reset}成员函数}
 \begin{lstlisting}[moreemph={unique\_ptr}]
 unique_ptr<int> p3(new int(105));
 p3.reset(p2.release());
+cout << *p3 << endl;
 \end{lstlisting}
+\vspace{-1.5mm}
 \end{blueblock}
 
 \column{0.3\textwidth}
 \begin{yellowblock}<2->{说明}
-\texttt{release}函数将\texttt{p1}置为\texttt{nullptr}并返回\texttt{p1}原来的指针
+\begin{itemize}
+  \item \texttt{release}将\texttt{p1}置为\texttt{nullptr}并返回\texttt{p1}原来的指针
+  \item p1将其内存所有权转移给p2
+\end{itemize}
+
 \end{yellowblock}
 \begin{yellowblock}<3->{说明}
-\texttt{reset}函数释放\texttt{p3}原来的动态内存，并指向\texttt{p2}释放出来的内存
+\begin{itemize}
+  \item \texttt{reset}释放\texttt{p3}原来的动态内存，并指向\texttt{p2}释放出来的内存
+\end{itemize}
+
 \end{yellowblock}
 \end{columns}
 
@@ -727,13 +743,13 @@ int *pa3 = new int[5]{1,2,3,4,5};
 
 \begin{blueblock}<5->{释放动态数组}
 \vspace{-1.5mm}\begin{lstlisting}[moreemph={}]
-delete [] pa1;
+delete [] pa;
 \end{lstlisting}\vspace{-1.5mm}
 \end{blueblock}
 
 \column{0.3\textwidth}
 \begin{yellowblock}<5->{说明}
-将逆序释放 \texttt{pa1}指向的动态数组的每一个元素
+将逆序释放 \texttt{pa}指向的动态数组的每一个元素
 \end{yellowblock}
 
 \end{columns}
@@ -761,11 +777,10 @@ delete [] pa1;
 \column{0.65\textwidth}
 \begin{blueblock}<2->{\texttt{A}类型定义}
 \vspace{-2mm}\begin{lstlisting}[moreemph={A}]
-class A {
+struct A {
     int *m_array; // 指向动态整型数组
-public:
-    A(size_t size) : m_array(new int[size]) {}
-    A(const A& rhs) : m_array(rhs.m_array) {}
+    A(size_t size) : m_array(new int[size]{1}) {}
+    A(const A &rhs) : m_array(rhs.m_array) {}
     ~A() {}
 };
 \end{lstlisting}\vspace{-2mm}
