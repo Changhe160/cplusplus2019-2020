@@ -212,7 +212,7 @@ void fun(){
 \begin{frame}[fragile]{8.1.1~创建动态对象}
 
 \begin{block}{动态对象}
-由程序员创建并负责回收的对象，在\alert{动态内存}（也称为自由存储区或堆）中被创建
+\alert{由程序员创建并负责回收}的对象，在动态内存（也称为自由存储区或堆）中被创建
 \begin{itemize}
   \item 动态存储周期
   \item 在全局数据区被分配存储空间
@@ -328,6 +328,7 @@ delete p2; // 错误：p2指向的动态内存已经被释放
 \column{0.65\textwidth}
 \begin{blueblock}<2->{重置空悬指针}
 \begin{lstlisting}[moreemph={}]
+int *p = new int;
 delete p;
 p = nullptr; //p 不再指向任何对象
 \end{lstlisting}
