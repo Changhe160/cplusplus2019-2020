@@ -454,20 +454,6 @@ if(p1 && p1->empty()) // 指针p1非空且其指向非空string
 
 \end{columns}
 
-\vspace{4mm}
-
-
-
-\vspace{-4mm}
-
-\begin{columns}[t]
-
-
-
-
-\column{0.3\textwidth}
-
-\end{columns}
 
 \end{frame}
 
@@ -974,6 +960,7 @@ class MyStr {
 \begin{lstlisting}[moreemph={MyStr}]
 {
     MyStr s1("dynamic"), s2(s1), s3;
+    MyStr s2(s1), s3;
     s3 = s1;
 } // 错误
 \end{lstlisting}
@@ -1363,7 +1350,7 @@ $\bullet$~否则，将尾结点指向该结点，并将尾指针后移，使其�
 
 \begin{columns}[t]
 
-\column{0.65\textwidth}
+\column{0.6\textwidth}
 \begin{blueblock}<2->{\texttt{insert}函数定义}
 \begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
@@ -1378,7 +1365,7 @@ Node<T>* SList<T>::insert(Node<T> *pos, const T &val) {
 \end{lstlisting}
 \end{blueblock}
 
-\column{0.3\textwidth}
+\column{0.35\textwidth}
 \begin{yellowblock}<2->{说明}
 $\bullet$~将新结点的指针域指向\texttt{pos}的后继，再将\texttt{pos}的后继修改为\texttt{node}\\
 $\bullet$~如果\texttt{pos}为尾结点，需要修改尾指针指向新结点
@@ -1446,12 +1433,10 @@ $\bullet$~否则返回一个空指针
 \column{0.65\textwidth}
 \begin{blueblock}<2->{\texttt{erase}函数定义}
 \vspace{-2mm}\begin{lstlisting}[moreemph={SList,T,Node}]
-template<typename T>
-void SList<T>::erase(const T &val) {
+template<typename T> void SList<T>::erase(const T &val) {
     Node<T> *p = m_head, *q = p;
     while (p != nullptr && p->m_data != val) {
-        q = p; // 指针q指向p
-        p = p->m_next; // 指针p后移
+        q = p;         p = p->m_next; 
     }
     if (p) q->m_next = p->m_next;
     if (p == m_tail) m_tail = q;
@@ -1495,11 +1480,11 @@ template<typename T>
 void SList<T>::clear() {
     Node<T> *p = nullptr;
     while (m_head != nullptr) {
-        p = m_head; //p 指向当前表头结点
-        m_head = m_head->m_next; //表头结点后移
-    delete p; //释放 p 所指向的内存
+        p = m_head;                 //p 指向当前表头结点
+        m_head = m_head->m_next;    //表头结点后移
+        delete p;                   //释放 p 所指向的内存
     }
-    m_tail = nullptr;//将尾指针 tail 置空
+    m_tail = nullptr;               //将尾指针 tail 置空
 }
 \end{lstlisting}\vspace{-2mm}
 \end{blueblock}
@@ -1945,9 +1930,7 @@ Stack<T>::~Stack() {
 
 \begin{frame}[fragile]{8.4.2~简单计算器}
 
-\alert{表达式求值}是栈的重要应用之一\\
-~\\
-假设有如下算术表达式：\\
+\alert{表达式求值}是栈的重要应用之一, 假设有如下算术表达式：\\
 \begin{center}{\Large \texttt{\alert<3>{a} \alert<4>{-} \alert<5>{b} \alert<6>{/} \alert<7>{c} \alert<8-13>{+} \alert<14>{d} \alert<15>{*} \alert<16>{e} \alert<17->{=}}}\end{center}
 
 \only<2>{\includegraphics[width=\textwidth]{calculate_1}}

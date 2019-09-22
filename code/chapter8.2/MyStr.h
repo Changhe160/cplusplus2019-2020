@@ -17,8 +17,8 @@ public:
 	MyStr& operator=(const MyStr &rhs);
 
 	//8.2.3节
-	MyStr(MyStr &&rhs);
-	MyStr& operator=(MyStr &&rhs);
+	//MyStr(MyStr &&rhs);
+	//MyStr& operator=(MyStr &&rhs);
 
 	//辅助函数声明
 	friend ostream& operator<<(ostream &, const MyStr &);//打印字符串

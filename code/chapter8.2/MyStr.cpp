@@ -32,7 +32,7 @@ MyStr& MyStr::operator=(const MyStr &rhs) {
 	return *this;
 }
 
-//8.2.3½Ú
+/*//8.2.3½Ú
 MyStr::MyStr(MyStr &&rhs) : m_length(rhs.m_length),m_buff(rhs.m_buff) {
 	rhs.m_buff = nullptr;
 	rhs.m_length = 0;
@@ -50,7 +50,7 @@ MyStr& MyStr::operator=(MyStr &&rhs) {
 	}
 	return *this;
 }
-
+*/
 ostream& operator <<(ostream& os, const MyStr& s) {
 	for (int i = 0; i < s.m_length; ++i)
 		os << s.m_buff[i];
