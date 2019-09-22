@@ -38,16 +38,21 @@ int main() {
 	}
 
 	{//8.2.2
-		MyStr s1("dynamic"), s2(s1), s3;
+		MyStr s1("dynamic");
+		MyStr s2(s1);
+		MyStr s3;
 		s3 = s1;
+		cout << s3 << endl;
 	}
 
 	{//8.2.3
 		MyStr s1("move "), s2("constructor");
 		MyStr s3(s1 + s2);
+		cout << s3 << endl;
 	}
 	{//8.2.3
 		MyStr s1("move "), s2("assignment"), s3;
 		s3 = s1 + s2;
+		cout << s3;
 	}
 }
