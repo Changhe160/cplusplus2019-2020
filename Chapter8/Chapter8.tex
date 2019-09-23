@@ -1320,12 +1320,12 @@ $\bullet$~\texttt{find}函数返回第一个值为\texttt{val}的元素的地址
 \begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
 void SList<T>::push_back(const T &val) {
-    Node<T> *node = new Node<T>(val); // 创建新结点
+     (*@{\alert<1>{Node<T> *node = new Node<T>(val); }}@*)// 创建新结点
     if (m_head == nullptr)
         m_head = m_tail= node;
     else {
-        m_tail->m_next = node;
-        m_tail = node;
+        (*@{\alert<1>{ m\_tail->m\_next = node;}}@*)
+         (*@{\alert<2>{m\_tail = node;}}@*)
     }
 }
 \end{lstlisting}\vspace{-3mm}
@@ -1366,9 +1366,9 @@ $\bullet$~否则，将尾结点指向该结点，并将尾指针后移，使其�
 \begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
 Node<T>* SList<T>::insert(Node<T> *pos, const T &val) {
-    Node<T> *node = new Node<T>(val); // 创建新结点
-    node->m_next = pos->m_next;
-    pos->m_next = node;
+    (*@{\alert<1>{Node<T> *node = new Node<T>(val);}}@*) // 创建新结点
+    (*@{\alert<1>{node->m\_next = pos->m\_next;}}@*)
+   (*@{\alert<2>{ pos->m\_next = node;}}@*)
     if (pos == m_tail) // 判断pos是否为尾结点
         m_tail = node;
     return node;
@@ -1547,13 +1547,11 @@ SList<T>::~SList() {
 \column{0.71\textwidth}
 \begin{blueblock}{重载输出运算符声明及友元声明}
 \vspace{-2.5mm}\begin{lstlisting}[moreemph={T,SList,Node}]
-template<typename T>
-ostream& operator<<(ostream&,const SList<T>&);
-
+template<typename T> ostream& operator<<(ostream&,const SList<T>&);
 template<typename T>
 class SList {
-friend ostream& operator<< <T>(ostream&,const SList<T>&);
-//其它成员定义保持不变
+    friend ostream& operator<< <T>(ostream&,const SList<T>&);
+    //其它成员定义保持不变
 };
 \end{lstlisting}\vspace{-2.5mm}
 \end{blueblock}
