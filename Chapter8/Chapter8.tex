@@ -1183,6 +1183,8 @@ s3 = s1 + s2;
 也称为单链表，是由有限个元素组成的有序集合，除了第一个元素和最后一个元素外，每个元素均有一个前驱和一个后继。\\
 \end{block}
 
+\vspace{6mm}
+
 \uncover<2->{数组是一种\alert{线性结构}，在逻辑结构上相邻的元素在物理结构上也相邻：}
 \begin{center}
 \only<3>{\includegraphics[scale=0.7]{array}}
@@ -1299,20 +1301,22 @@ $\bullet$~\texttt{find}函数返回第一个值为\texttt{val}的元素的地址
 \begin{frame}[fragile]{8.3.2~插入操作\normalsize{~---~尾插}}
 
 尾插操作将新结点插入到链表的表尾：
-\only<1>{\includegraphics[width=\textwidth]{push_back1}}
-\only<2>{\includegraphics[width=\textwidth]{push_back2}}
-\only<3->{\includegraphics[width=\textwidth]{push_back3}}
+\begin{center}
+\only<1>{\includegraphics[width=0.85\textwidth]{push_back1}}
+\only<2>{\includegraphics[width=0.85\textwidth]{push_back2}}
+\only<3->{\includegraphics[width=0.85\textwidth]{push_back3}}  
+\end{center}
 
 \vspace{-6mm}
 
-\uncover<2->{尾插操作定义如下：}
+\uncover<1->{尾插操作定义如下：}
 
 \vspace{-4mm}
 
 \begin{columns}[t]
 
 \column{0.65\textwidth}
-\begin{blueblock}<2->{\texttt{push\_back}函数定义}
+\begin{blueblock}<1->{\texttt{push\_back}函数定义}\vspace{-3mm}
 \begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
 void SList<T>::push_back(const T &val) {
@@ -1324,7 +1328,7 @@ void SList<T>::push_back(const T &val) {
         m_tail = node;
     }
 }
-\end{lstlisting}
+\end{lstlisting}\vspace{-3mm}
 \end{blueblock}
 
 \column{0.3\textwidth}
@@ -1344,19 +1348,21 @@ $\bullet$~否则，将尾结点指向该结点，并将尾指针后移，使其�
 
 插入操作将新结点插入到链表的指定位置：
 %\begin{center}\includegraphics[width=\textwidth]{insert}\end{center}
-\only<1>{\includegraphics[width=\textwidth]{insert1}}
-\only<2>{\includegraphics[width=\textwidth]{insert2}}
-\only<3->{\includegraphics[width=\textwidth]{insert3}}
+\begin{center}
+\only<1>{\includegraphics[width=0.85\textwidth]{insert1}}
+\only<2>{\includegraphics[width=0.85\textwidth]{insert2}}
+\only<3->{\includegraphics[width=0.85\textwidth]{insert3}}
+\end{center}
 \vspace{-4mm}
 
-\uncover<2->{插入操作定义如下：}
+\uncover<1->{插入操作定义如下：}
 
 \vspace{-4mm}
 
 \begin{columns}[t]
 
 \column{0.6\textwidth}
-\begin{blueblock}<2->{\texttt{insert}函数定义}
+\begin{blueblock}<1->{\texttt{insert}函数定义}
 \begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
 Node<T>* SList<T>::insert(Node<T> *pos, const T &val) {
@@ -1441,7 +1447,7 @@ $\bullet$~否则返回一个空指针
 template<typename T> void SList<T>::erase(const T &val) {
     Node<T> *p = m_head, *q = p;
     while (p != nullptr && p->m_data != val) {
-        q = p;         p = p->m_next;
+        q = p;         p = p->m_next; 
     }
     if (p) q->m_next = p->m_next;
     if (p == m_tail) m_tail = q;
@@ -2107,7 +2113,7 @@ while (getline(cin, exp) ) //获取一行表达式
 
 \begin{frame}[fragile]{8.5~二叉树}
 
-\vspace{-4mm}
+\vspace{-9mm}
 
 \begin{columns}[t]
 
@@ -2115,16 +2121,16 @@ while (getline(cin, exp) ) //获取一行表达式
 \begin{block}{线性结构}
 每个结点只有一个后继
 \end{block}
-数组：\\
+数组：\\\vspace{-2mm}
 \begin{center}
-  \includegraphics[width=\textwidth]{array}
+  \includegraphics[width=0.9\textwidth]{array}
 \end{center}
-线性链表：\\
+线性链表：
 \vspace{-2mm}
 \begin{center}
-  \includegraphics[width=\textwidth]{linked_list}
+  \includegraphics[width=0.9\textwidth]{linked_list}
 \end{center}
-链栈：\\
+链栈：
 \vspace{-4mm}
 \begin{center}
   \includegraphics[width=0.4\textwidth]{stack}
@@ -2136,11 +2142,11 @@ while (getline(cin, exp) ) //获取一行表达式
 \end{block}
 \uncover<2->{树：
 \begin{center}
-  \includegraphics[width=0.6\textwidth]{tree}
+  \includegraphics[width=0.55\textwidth]{tree}
 \end{center}
 图：
 \begin{center}
-  \includegraphics[width=\textwidth]{graph}
+  \includegraphics[width=0.9\textwidth]{graph}
 \end{center}}
 
 \end{columns}
@@ -2342,23 +2348,23 @@ BinaryTree<int> bstree;
 
 \uncover<2->{\texttt{\alert<3>{8},\alert<4>{3},\alert<5>{10},\alert<6>{1},\alert<7>{6},\alert<8>{14},\alert<9>{4},\alert<10>{7},\alert<11>{13}}}
 
-\only<3>{\includegraphics[width=\textwidth]{create_binary_tree_1}}
-\only<4>{\includegraphics[width=\textwidth]{create_binary_tree_2}}
-\only<5>{\includegraphics[width=\textwidth]{create_binary_tree_3}}
-\only<6>{\includegraphics[width=\textwidth]{create_binary_tree_4}}
-\only<7>{\includegraphics[width=\textwidth]{create_binary_tree_5}}
-\only<8>{\includegraphics[width=\textwidth]{create_binary_tree_6}}
-\only<9>{\includegraphics[width=\textwidth]{create_binary_tree_7}}
-\only<10>{\includegraphics[width=\textwidth]{create_binary_tree_8}}
-\only<11->{\includegraphics[width=\textwidth]{create_binary_tree_9}}
+\only<3>{\includegraphics[width=0.7\textwidth]{create_binary_tree_1}}
+\only<4>{\includegraphics[width=0.7\textwidth]{create_binary_tree_2}}
+\only<5>{\includegraphics[width=0.7\textwidth]{create_binary_tree_3}}
+\only<6>{\includegraphics[width=0.7\textwidth]{create_binary_tree_4}}
+\only<7>{\includegraphics[width=0.7\textwidth]{create_binary_tree_5}}
+\only<8>{\includegraphics[width=0.7\textwidth]{create_binary_tree_6}}
+\only<9>{\includegraphics[width=0.7\textwidth]{create_binary_tree_7}}
+\only<10>{\includegraphics[width=0.7\textwidth]{create_binary_tree_8}}
+\only<11->{\includegraphics[width=0.7\textwidth]{create_binary_tree_9}}
 
 \column{0.3\textwidth}
 \begin{yellowblock}{说明}
 插入新结点成功则返回结点指针，然后打印数据
-\end{yellowblock}
+\end{yellowblock} \vspace{-2mm}
 \begin{yellowblock}<2->{说明}
 从根结点开始，若待插入结点小于根结点，则在左子树上继续查找插入位置；否则在右子树中查找
-\end{yellowblock}
+\end{yellowblock}\vspace{-2mm}
 \begin{greenblock}<12->{问题}
 如果改变插入顺序，如将\texttt{1}调到第一个插入，树的结构会有多大变化？
 \end{greenblock}
@@ -2462,7 +2468,6 @@ Node<T> * BinaryTree<T>::insert_(Node<T>* &p, const T &value){
 \vspace{-5mm}
 
 \begin{columns}[t]
-
 \column{0.72\textwidth}
 \begin{blueblock}{示例代码}
 \vspace{-3mm}\begin{lstlisting}[moreemph={BinaryTree,Node}]
@@ -2474,29 +2479,24 @@ void BinaryTree<T>::inOrder(Node<T> *p,void (*visit)(T&)){
         inOrder(p->m_right, visit); //遍历右子树
     }
 }
-\end{lstlisting}\vspace{-3mm}
+\end{lstlisting}\vspace{-2.5mm}
 \end{blueblock}
 
 \column{0.23\textwidth}
 \begin{yellowblock}{说明}
 第二个形参为一个返回值为空、包含一个\texttt{T\&}类型形参的函数指针，指向用户自定义的访问处理函数
 \end{yellowblock}
-
 \end{columns}
-
-\vspace{-2mm}
 
 \uncover<2->{定义一个简单的访问函数模板：}
 
-\vspace{-5mm}
+\vspace{-4mm}
 
 \begin{columns}[t]
-
 \column{0.72\textwidth}
 \begin{blueblock}<2->{\texttt{visit}函数模板定义}
 \vspace{-3mm}\begin{lstlisting}[moreemph={BinaryTree,T,Node}]
-template<typename T>
-void visit(T &value) { cout << value << " "; }
+template<typename T> void visit(T &value) { cout << value << " "; }
 \end{lstlisting}\vspace{-3mm}
 \end{blueblock}
 
@@ -2509,24 +2509,19 @@ void visit(T &value) { cout << value << " "; }
 
 \uncover<3->{中序遍历之前创建的二叉搜索树：}
 
-\vspace{-5mm}
-
+\vspace{-4mm}
 \begin{columns}[t]
-
 \column{0.72\textwidth}
 \begin{blueblock}<3->{}
 \vspace{-3mm}\begin{lstlisting}[moreemph={BinaryTree,T,Node}]
 bstree.inOrder(bstree.root(), visit<int>);
+输出结果为：1 3 4 6 7 8 10 13 14
 \end{lstlisting}\vspace{-3mm}
 \end{blueblock}
 
 \column{0.23\textwidth}
 
 \end{columns}
-
-\vspace{2mm}
-
-\uncover<3->{输出结果为：\texttt{1 3 4 6 7 8 10 13 14}}
 
 \end{frame}
 
@@ -2643,7 +2638,6 @@ public:
     Node& operator=(const Node&) = delete;
     //其它成员保持不变
 };
-
 template<typename T>
 class BinaryTree{
 public:
