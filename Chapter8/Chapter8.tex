@@ -1183,15 +1183,16 @@ s3 = s1 + s2;
 也称为单链表，是由有限个元素组成的有序集合，除了第一个元素和最后一个元素外，每个元素均有一个前驱和一个后继。\\
 \end{block}
 
-\vspace{6mm}
-
 \uncover<2->{数组是一种\alert{线性结构}，在逻辑结构上相邻的元素在物理结构上也相邻：}
-\uncover<2->{\begin{center}\includegraphics[scale=0.7]{array}\end{center}}
+\begin{center}
+\only<3>{\includegraphics[scale=0.7]{array}}
+\only<4->{\includegraphics[scale=0.43]{array_2}}
+\end{center}
 
 \vspace{6mm}
 
-\uncover<3->{线性链表为\alert{链式结构}，在逻辑结构上相邻的元素在物理结构上\alert{不要求}相邻：}
-\uncover<3->{\begin{center}\includegraphics[scale=0.7]{linked_list}\end{center}}
+\uncover<5->{线性链表为\alert{链式结构}，在逻辑结构上相邻的元素在物理结构上\alert{不要求}相邻：}
+\uncover<6->{\begin{center}\includegraphics[scale=0.7]{linked_list}\end{center}}
 
 \end{frame}
 
@@ -1298,7 +1299,9 @@ $\bullet$~\texttt{find}函数返回第一个值为\texttt{val}的元素的地址
 \begin{frame}[fragile]{8.3.2~插入操作\normalsize{~---~尾插}}
 
 尾插操作将新结点插入到链表的表尾：
-\begin{center}\includegraphics[width=0.9\textwidth]{push_back}\end{center}
+\only<1>{\includegraphics[width=\textwidth]{push_back1}}
+\only<2>{\includegraphics[width=\textwidth]{push_back2}}
+\only<3->{\includegraphics[width=\textwidth]{push_back3}}
 
 \vspace{-6mm}
 
@@ -1340,8 +1343,10 @@ $\bullet$~否则，将尾结点指向该结点，并将尾指针后移，使其�
 \begin{frame}[fragile]{8.3.2~插入操作\normalsize{~---~指定位置插入}}
 
 插入操作将新结点插入到链表的指定位置：
-\begin{center}\includegraphics[width=\textwidth]{insert}\end{center}
-
+%\begin{center}\includegraphics[width=\textwidth]{insert}\end{center}
+\only<1>{\includegraphics[width=\textwidth]{insert1}}
+\only<2>{\includegraphics[width=\textwidth]{insert2}}
+\only<3->{\includegraphics[width=\textwidth]{insert3}}
 \vspace{-4mm}
 
 \uncover<2->{插入操作定义如下：}
@@ -1436,7 +1441,7 @@ $\bullet$~否则返回一个空指针
 template<typename T> void SList<T>::erase(const T &val) {
     Node<T> *p = m_head, *q = p;
     while (p != nullptr && p->m_data != val) {
-        q = p;         p = p->m_next; 
+        q = p;         p = p->m_next;
     }
     if (p) q->m_next = p->m_next;
     if (p == m_tail) m_tail = q;
