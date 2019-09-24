@@ -48,7 +48,8 @@ int main(){
 		{
 			unique_ptr<string> p1; //p1为nullptr
 			unique_ptr<int> p2(new int(207)); //直接初始化方式创建p2
-			unique_ptr<int> p3=make_unique<int>(207); //直接初始化方式创建p2 C++
+			unique_ptr<int> p3=make_unique<int>(207); //C++14 
+			unique_ptr<string> p4 = make_unique<string>("C++14"); //C++14
 		} //p1和p2离开作用域，被销毁，同时释放其指向的动态内存
 	}
 	{//8.1.3

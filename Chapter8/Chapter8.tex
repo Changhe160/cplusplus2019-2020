@@ -1304,7 +1304,7 @@ $\bullet$~\texttt{find}函数返回第一个值为\texttt{val}的元素的地址
 \begin{center}
 \only<1>{\includegraphics[width=0.85\textwidth]{push_back1}}
 \only<2>{\includegraphics[width=0.85\textwidth]{push_back2}}
-\only<3->{\includegraphics[width=0.85\textwidth]{push_back3}}  
+\only<3->{\includegraphics[width=0.85\textwidth]{push_back3}}
 \end{center}
 
 \vspace{-6mm}
@@ -1447,7 +1447,7 @@ $\bullet$~否则返回一个空指针
 template<typename T> void SList<T>::erase(const T &val) {
     Node<T> *p = m_head, *q = p;
     while (p != nullptr && p->m_data != val) {
-        q = p;         p = p->m_next; 
+        q = p;         p = p->m_next;
     }
     if (p) q->m_next = p->m_next;
     if (p == m_tail) m_tail = q;
@@ -1516,10 +1516,8 @@ void SList<T>::clear() {
 \begin{blueblock}<2->{\texttt{SList}析构函数定义}
 \vspace{-2mm}\begin{lstlisting}[moreemph={SList,T,Node}]
 template<typename T>
-SList<T>::~SList() {
-    clear();
-}
-\end{lstlisting}\vspace{-2mm}
+SList<T>::~SList() {    clear(); }
+\end{lstlisting}\vspace{-3mm}
 \end{blueblock}
 
 \column{0.3\textwidth}
@@ -1679,12 +1677,10 @@ public:
 \column{0.65\textwidth}
 \begin{blueblock}<2->{\texttt{Node}类模板部分定义}
 \vspace{-2.5mm}\begin{lstlisting}[moreemph={SList,Node,T}]
-template<typename T>
-class SList; //前向声明
-
+template<typename T> class SList; //前向声明
 template<typename T>
 class Node {
-friend class SList<T>; // 将SList声明为Node的友元
+    friend class SList<T>; // 将SList声明为Node的友元
     // 其它成员定义保持不变
 };
 \end{lstlisting}\vspace{-2.5mm}
@@ -2012,7 +2008,7 @@ int Calculator::precedence(const char & s) const{
 double Calculator::readNum(string::const_iterator &it){
     string t;
     while (isNum(it))
-    t += *it++;                  //继续扫描，直到遇到运算符
+        t += *it++;                  //继续扫描，直到遇到运算符
     return stod(t);              //将数字字符串转换为double类型（C++11新特性）
 }
 \end{lstlisting}\vspace{-2.5mm}
