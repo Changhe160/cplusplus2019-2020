@@ -1548,7 +1548,7 @@ SList<T>::~SList() {    clear(); }
 template<typename T> ostream& operator<<(ostream&,const SList<T>&);
 template<typename T>
 class SList {
-    friend ostream& operator<< <T>(ostream&,const SList<T>&);
+    friend ostream& operator<< (*@{\alert{<T>}}@*)(ostream&,const SList<T>&);
     //其它成员定义保持不变
 };
 \end{lstlisting}\vspace{-2.5mm}
@@ -1560,7 +1560,7 @@ template<typename T>
 ostream& operator<<(ostream &os, const SList<T>& list) {
     Node<T> *p = list.m_head;
     while (p != nullptr) {
-        os << p->data() << " ";
+        os << p->data() << " "; // 类型T支持<<运算符
         p = p->next();
     }
     return os;
@@ -1587,7 +1587,7 @@ ostream& operator<<(ostream &os, const SList<T>& list) {
 
 \begin{frame}[fragile]{8.3.6~拷贝控制与友元声明}
 
-回顾类模板 Node的定义，如果使用默认的复制与赋值操作会有什么后果？
+回顾类模板 Node的定义，如果使用默认的复制与赋值操作会有什么问题？
 
 \vspace{-4mm}
 
@@ -1853,6 +1853,7 @@ void Stack<T>::push(const T &val) {
 \vspace{-2mm}\begin{lstlisting}[moreemph={Node,T,Stack}]
 template<typename T>
 void Stack<T>::pop() {
+    if (empty()) return;
     Node<T> *p = m_top;
     m_top = m_top->m_next;
     delete p;
