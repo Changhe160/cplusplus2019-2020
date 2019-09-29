@@ -79,6 +79,7 @@ Node<T>* SList<T>::insert(Node<T> *pos, const T &val) {
 }
 template<typename T>
 void SList<T>::erase(const T &val) { //删除第一次出现的元素
+	if (m_head == nullptr) return;
 	Node<T> *p = m_head, *q=p;
 	while (p!=nullptr&&p->m_data != val) {
 		q = p;//q指向p
@@ -88,6 +89,8 @@ void SList<T>::erase(const T &val) { //删除第一次出现的元素
 		q->m_next = p->m_next;
 	if (p == m_tail) 
 		m_tail = q;
+	if (p == m_head &&p)
+		m_head = p->m_next;
 	delete p;
 }
 

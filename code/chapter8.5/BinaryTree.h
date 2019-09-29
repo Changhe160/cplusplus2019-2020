@@ -30,19 +30,23 @@ public:
 
 	template<typename FUN>
 	void postOrder(FUN &fun, Node<T> *p) const;
-	void destroy(Node<T>* p);
+	
 	friend ostream &operator<< <T> (ostream &cout, const BinaryTree<T> &value);
 
 	
 	void remove(Node<T> *p);
 	Node<T>* parent(Node<T> *node) const;
-
+	void clear() { 
+		destroy(m_root); 
+		m_root = nullptr;
+	}
 
 private:
 	int size(Node<T> *p) const;
 	Node<T>* search_(Node<T> *p, const T &value) const;
 	Node<T>* insert_(Node<T>* &p, const T &value);
-	
+	void destroy(Node<T>* p);
+
 	Node<T>* parent(Node<T> *p, Node<T> *node) const;
 	Node<T>* minChild(Node<T> *p) const;
 

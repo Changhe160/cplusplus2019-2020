@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[aspectratio=43,UTF8,10pt]{ctexbeamer}
+\documentclass[aspectratio=169,UTF8,10pt]{ctexbeamer}
 
     \mode<presentation> {
     \usetheme{Madrid}
@@ -154,8 +154,7 @@ class Course {                 //课程类
     string m_name;             //课程名
     int m_score;               //成绩
 public:
-    Course(const string &name = "", int score = 0):
-    m_name(name), m_score(score) {}
+    Course(const string &name = "", int score = 0):m_name(name), m_score(score) {}
     void setScore(int score) { m_score = score; }
     int score() const { return m_score; }
     const string& name() const { return m_name; }
@@ -175,13 +174,12 @@ public:
     \end{column}
     \begin{column}{0.94\linewidth}
     \begin{lstlisting}[]
-class PartTimeWorker : public Person {  //兼职人员类，公有                                                        继承Person
+class PartTimeWorker : public Person {  //兼职人员类，公有 继承Person
 private:
     double m_hour;                      //工作小时数
     static double ms_payRate;           //每小时工资
 public:
-    PartTimeWorker(const string &name, int age, double h=0):
-    Person(name, age), m_hour(h){}
+    PartTimeWorker(const string &name, int age, double h=0): Person(name, age), m_hour(h){}
     void setHours(double h) { m_hour = h; }
     double salary() { return m_hour * ms_payRate; }
 };
@@ -204,8 +202,7 @@ class Student : public Person {  //学生类，公有继承Person
 private:
     Course m_course;                 //课程信息
 public:
-    Student(const string &name, int age, const Course &c):
-    Person(name, age), m_course(c) {}
+    Student(const string &name, int age, const Course &c):Person(name, age), m_course(c) {}
     Course& course() { return m_course; }
 };
     \end{lstlisting}\ttfamily
@@ -305,7 +302,7 @@ void test() {
     \end{column}
     \begin{column}{0.94\linewidth}
     \begin{lstlisting}[]
-class PriDerv : private Base {  //私有继承不影响派生类成员对                                              基类的访问
+class PriDerv : private Base {  //私有继承不影响派生类成员对 基类的访问
     void foo() {
         m_pro = 1;      //正确：可以访问Base类受保护成员
         m_pub = 1;      //正确：可以访问Base类公有成员
@@ -436,7 +433,7 @@ p = w;                           //派生类对象赋值给基类对象
 \begin{frame}[fragile]
     {9.1 继承\small{—类型转换}}
     \begin{block}{派生类到基类的转换}
-         虽然派生类可以自动转换为基类的引用或指针，但没有从基类到派生类的自动转换。这是显而易见的，因为基类对象不能提供派生类对象\alert{新定义的部分}，例如：
+         虽然派生类可以自动转换为基类的引用或指针，但没有从基类到派生类的自动转换。这是因为基类对象不能提供派生类对象\alert{新定义的部分}，例如：
     \begin{columns}
     \begin{column}{0.06\linewidth}
     \end{column}
@@ -509,8 +506,7 @@ Base b(d);                           //错误：PriDerv不能转换为Base
     \end{column}
     \begin{column}{0.94\linewidth}
     \begin{lstlisting}[]
-Student::Student(const string &name,int age,const Course &c):
-    Person(name, age),/*初始化基类成员*/
+Student::Student(const string &name,int age,const Course &c): Person(name, age),/*初始化基类成员*/
     m_course(c)/*初始化自有成员*/ {
     cout<<"Constr of Student"<<endl;
 }
@@ -571,7 +567,7 @@ Person::Person(const string &name = "",int age = 0):
     \begin{column}{0.06\linewidth}
     \end{column}
     \begin{column}{0.94\linewidth}
-    \begin{lstlisting}[]
+    \begin{lstlisting}[moreemph={Person,Student,Course}]
 Person::~Person() {
     cout<< "Destr of Person" <<endl;
 }
@@ -585,11 +581,12 @@ Course::~Course() {
     \end{column}
     \end{columns}
         利用如下代码创建Student类对象：\\\vspace{0.5em}
-        Course c("Math");\\
-        \{\\
-          ~~~~Student s("Kevin", 19, c); ~~~~\texttt{//}\alert{思考}：输出结果会是怎样的？ \\
-        \}\\\vspace{0.5em}
-
+            \begin{lstlisting}[moreemph={Person,Student,Course}]
+        Course c("Math");
+        {
+            Student s("Kevin", 19, c); (*@{\texttt{//}\alert{思考}：输出结果会是怎样的？ }@*)
+        }
+\end{lstlisting}\ttfamily
     \end{block}
 \end{frame}
 
