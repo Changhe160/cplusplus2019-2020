@@ -2385,9 +2385,9 @@ template<typename T>
 Node<T> * BinaryTree<T>::insert_(Node<T>* (*@{\alert \&}@*)p, const T &value){
     if (p == nullptr)                           //找到插入位置，创建新结点
         return p = new (std::nothrow) Node<T>(value);
-    else if (value < p->m_data) 
+    else if (value < p->m_data)
         return insert_(p->m_left, value);       //在左子树中查找
-    else                       
+    else
         return insert_(p->m_right, value);       //在右子树中查找
 }
 \end{lstlisting}
@@ -2658,6 +2658,14 @@ public:
 \begin{frame}[c]{~}
 \begin{center}
   \huge{本章结束}
+  \begin{block}{上机作业}
+ \begin{enumerate}
+   \item 实验指导书：第八章
+   \item 检查日期：待定
+   \item 地点：与助教协商
+   \item 特别说明：第三道题目二叉树的应用：哈夫曼编码
+ \end{enumerate}
+\end{block}
 \end{center}
 \end{frame}
 
