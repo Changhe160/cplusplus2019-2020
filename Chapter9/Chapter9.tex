@@ -105,14 +105,16 @@
 
 \begin{frame}
     {9.1 继承\small{—定义基类和派生类}}
+    \begin{block}{继承}
+    基类：被继承的类；派生类：通过继承产生的新类
+    \end{block}
     \begin{exampleblock}{例9.1：}
-        下面设计一个简单的人员系统，包括两类人员：学生（指大学生）和兼职员工。该系统包含以下几个类：Person、Student、PartTimeWorker和Course。\\
-        ~~
+        下面设计一个简单的人员系统，包括两类人员：学生（指大学生）和兼职员工。该系统包含以下几个类：Person、Student、PartTimeWorker和Course。
     \end{exampleblock}
 
     \begin{figure}
     \centering
-    \includegraphics[width=25em]{Fig/Fig9-1.png}
+    \includegraphics[width=0.8\textwidth]{Fig/Fig9-1.png}
     \end{figure}
 \end{frame}
 \subsection{定义基类}
@@ -144,7 +146,7 @@ public:
 
 \begin{frame}[fragile]
     {9.1 继承\small{—定义基类和派生类}}
-    \begin{exampleblock}{例9.1中定义基类Course：}
+    \begin{exampleblock}{例9.1中定义类Course：}
     \begin{columns}
     \begin{column}{0.06\linewidth}
     \end{column}
@@ -168,6 +170,9 @@ public:
 
 \begin{frame}[fragile]
     {9.1 继承\small{—定义基类和派生类}}
+        \begin{block}{语法}
+    类名后面紧随一个冒号，后跟以逗号分隔的基类列表，其中每个基类名前面的访问限定符可以为~public、protected~或者~private
+    \end{block}
     \begin{exampleblock}{例9.1中定义派生类PartTimeWorker：}
     \begin{columns}
     \begin{column}{0.06\linewidth}
@@ -192,6 +197,7 @@ double PartTimeWorker::ms_payRate = 7.53;  //静态成员初始化
 
 \begin{frame}[fragile]
     {9.1 继承\small{—定义基类和派生类}}
+
     \begin{exampleblock}{例9.1中定义派生类Student：}
     \begin{columns}
     \begin{column}{0.06\linewidth}
