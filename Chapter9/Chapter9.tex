@@ -321,7 +321,7 @@ void test() {
     PubDerv d1;
     d1.m_pub = 10;       //正确：m_pub在PubDerv中是公有的
     PriDerv d2;
-    d2.m_pub = 1;        //错误：m_pub在PubDerv中是私有的
+    d2.m_pub = 1;        //错误：m_pub在PriDerv中是私有的
 }
     \end{lstlisting}\ttfamily
     \end{column}
@@ -1168,13 +1168,14 @@ public:
 
 \begin{frame}[fragile]
     {9.3 虚函数与多态性\small{—再探计算器}}
-    \begin{block}{定义计算器类}
-    ~~~~~~由于unique\_ptr不支持复制操作，因此向前面章节定义的Node模板和Stack模板分别添加支持移动语义的构造函数和push函数：
-        \begin{lstlisting}[basicstyle=\normalsize\ttfamily]
-        template<typename T>    // 含右值形参的移动构造函数
+    \begin{block}{利用智能指针管理内存}
+    由于unique\_ptr不支持复制操作，因此向前面章节定义的Node模板和Stack模板分别添加支持移动语义的构造函数和push函数：
+        \begin{lstlisting}[basicstyle=\normalsize\ttfamily,moreemph={Node, T,Stack}]
+        template<typename T>                // 含右值形参的移动构造函数
         Node<T>::Node(T &&val) :m_value(std::move(val)) { }
+        
         template<typename T>
-        void Stack<T>::push(T &&val) {  //含右值形参的push函数
+        void Stack<T>::push(T &&val) {       //含右值形参的push函数
             Node<T> *node = new Node<T>(std::move(val));
             node->m_next = m_top;
             m_top = node;
