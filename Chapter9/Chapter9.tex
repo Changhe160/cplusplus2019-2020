@@ -71,7 +71,7 @@
     %     []
     %     {}
 
-    \date {}
+    %\date {}
 
 
      \institute
@@ -296,10 +296,10 @@ void test() {           //全局函数
     \item \textcolor[rgb]{0,0,1}{\texttt{protected}}~继承 :基类的protected和public属性在派生类中变为protected。
     \item \textcolor[rgb]{0,0,1}{\texttt{private}}~继承:基类的protected和public属性在派生类中变为private。
     \end{itemize}
-    访问权限不仅取决于访问限定符，还取决于继承方式
     \end{block}
+    \pause
        \begin{block}{访问权限不仅取决于访问限定符，还取决于继承方式}
-    以上三种继承，基类中的private属性在其派生类中均\alert{保持不变}。    
+    以上三种继承，基类中的private属性在其派生类中均\alert{保持不变}。
     \end{block}
 \end{frame}
 
@@ -319,8 +319,8 @@ class PriDerv : private Base {  //私有继承不影响派生类成员对 基类
 };
 void test() {
     PubDerv d1;
-    PriDerv d2;
     d1.m_pub = 10;       //正确：m_pub在PubDerv中是公有的
+    PriDerv d2;
     d2.m_pub = 1;        //错误：m_pub在PubDerv中是私有的
 }
     \end{lstlisting}\ttfamily
@@ -430,7 +430,7 @@ class Derived : public Base {
     \begin{column}{0.06\linewidth}
     \end{column}
     \begin{column}{0.94\linewidth}
-    \begin{lstlisting}[]
+    \begin{lstlisting}[moreemph={PartTimeWorker,Person}]
 PartTimeWorker w("Kevin", 21);
 Person p, *ptr;
 ptr = &w;                        //基类指针ptr指向派生类对象w
@@ -516,7 +516,7 @@ Base b(d);                           //错误：PriDerv不能转换为Base
     \begin{block}{派生类Student对象的构造}
         以上述Student类为例：
     \begin{columns}
-  
+
     \begin{column}{\linewidth}
     \begin{lstlisting}[]
 Student::Student(const string &name,int age,const Course &c): Person(name, age),/*初始化基类成员*/ m_course(c)/*初始化自有成员*/ {
@@ -562,6 +562,7 @@ Person::Person(const string &name = "",int age = 0):m_name(name), m_age(age) {
         \verb;Copy constr of Course;\\
         \verb;Constr of Student;\\
     \end{block}
+    \pause
     \begin{yellowblock}{提示：存在继承关系的类的成员初始化}
         在派生类对象构造过程中，每个类\alert{仅负责}自己的成员的初始化。
     \end{yellowblock}
@@ -655,6 +656,7 @@ B& B::operator=(const B &d) {
     \end{column}
     \end{columns}
     \end{block}
+    \pause
     \begin{yellowblock}{提示：派生类中使用基类的构造或赋值成员}
    如果基类中合成的构造函数、复制构造函数或赋值运算符是删除的或者是不可以访问的，那么派生类中对应的合成成员也是删除的。
     \end{yellowblock}
@@ -694,7 +696,7 @@ protected:
 public:
     Shape(const string &s = ""):m_name(s) { }
     //虚函数
-    virtual double (*@{\alert{area}}@*)() const { return 0; }       
+    virtual double (*@{\alert{area}}@*)() const { return 0; }
     const string& name() { return m_name; }
 };
     \end{lstlisting}\vspace{-2mm}\ttfamily
@@ -716,7 +718,7 @@ public:
      \end{column}
     \end{columns}
     \pause
-     \begin{block}{Square类}  
+     \begin{block}{Square类}
     \vspace{-3mm}\begin{lstlisting}[]
 class Square : public Shape {
 private:
@@ -727,8 +729,8 @@ public:
 };
     \end{lstlisting}\vspace{-2mm}\ttfamily
     \end{block}
-    
-    
+
+
 \end{frame}
 
 
@@ -772,7 +774,7 @@ if(sq>ci)  p = &sq;
     \end{block}
      \end{column}
     \end{columns}
-    
+
 \end{frame}
 
 
@@ -789,14 +791,14 @@ if(sq>ci)  p = &sq;
     public:
         ~Circle() {   cout<<"Destr of Circle"<<endl;  }
     };
-    
+
     Shape *p = new Circle();
     delete p; //输出Destr of Circle~~Destr of Shape
     \end{lstlisting}\ttfamily
     \end{block}
     \pause
     \alert{注意}:如果基类析构函数为非虚函数，则delete一个指向派生类对象的基类指针将产生未定义的行为
-    
+
 \end{frame}
 
 
@@ -897,7 +899,7 @@ struct B {
     virtual void fun2() { }
     void fun3() { }
 };
-struct D1 : public B { 
+struct D1 : public B {
     void fun1() override { }   //错误：基类没有不带参数的fun1函数
     void fun2() final { }        //D1::fun2为最终版本
     void fun3() override { }   //错误：基类没有可覆盖的函数
@@ -938,7 +940,7 @@ struct D2 : public D1 {
 
 \begin{frame}[fragile]
     {9.3 虚函数与多态性\small{—继承与组合}}
-    
+
     \begin{columns}
     \begin{column}{0.48\linewidth}
     \begin{block}{Cat类}
@@ -954,7 +956,7 @@ struct D2 : public D1 {
     \end{lstlisting}\ttfamily
     \end{block}
     \end{column}
-    
+
     \begin{column}{0.48\linewidth}
     \begin{block}{Dog类}
     \begin{lstlisting}[moreemph={Dog}]
@@ -970,12 +972,12 @@ struct D2 : public D1 {
     \end{block}
      \end{column}
     \end{columns}
-    
+
 \end{frame}
 
 \begin{frame}[fragile]
     {9.3 虚函数与多态性\small{—继承与组合}}
-    
+
     \begin{columns}
     \begin{column}{0.48\linewidth}
     \begin{block}{IS-A设计}
@@ -1006,7 +1008,7 @@ struct D2 : public D1 {
      \end{block}
     \end{column}
     \end{columns}
-     
+
 \end{frame}
 
 
@@ -1015,7 +1017,7 @@ struct D2 : public D1 {
     \begin{block}{抽象共有属性}
     把Cat和Dog共有的属性\alert{抽象}出来，包括名字和发声行为，形成一个新的公共基类Mammal
     \end{block}
-    
+
 \begin{columns}
 \begin{column}{0.31\linewidth}
 \begin{lstlisting}[moreemph={Mammal,Dog,Cat}]
@@ -1051,9 +1053,9 @@ public:
 \end{column}
 \end{columns}
 
-  \pause  
+  \pause
     \begin{lstlisting}[moreemph={Mammal,Dog,Cat}]
-Dog dog; 
+Dog dog;
 Cat cat;
 dog.sounding();  //dog能正常的汪汪叫
 cat.sounding();  //cat能正常的喵喵叫
@@ -1062,7 +1064,7 @@ cat.sounding();  //cat能正常的喵喵叫
   \begin{itemize}
     \item 既统一了接口，又实现了不同的行为。
     \item  符合事实和自然逻辑。
-  \end{itemize} 
+  \end{itemize}
 \end{frame}
 
 \subsection{再探计算器}
@@ -1118,19 +1120,19 @@ protected:
 class Plus : public Operator{       //运算符 +
 public:
     Plus() :Operator('+', 2, 2) {}
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a + b; }
 };
 class Minus :public Operator{       //运算符 -
 public:
     Minus() :Operator('-', 2, 2) {}
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a - b; }
 };
 class Multiply :public Operator{    //运算符 *
 public:
     Multiply() :Operator('*', 2, 3) {}
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a * b; }
 };
     \end{lstlisting}\ttfamily
@@ -1142,19 +1144,19 @@ public:
 class Divide :public Operator{          //运算符 /
 public:
     Divide() :Operator('/', 2, 3) {}
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a / b; }
 };
 class Hash :public Operator{            //运算符 #
 public:
     Hash() :Operator('#', 1, 1) {}      //无实际意义
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a; }
 };
 class Equal :public Operator{           //结束符 =
 public:
     Equal() :Operator('=', 2, 0) {}     //无实际意义
-    double get(double a, double b) const { 
+    double get(double a, double b) const {
         return a; }
 };
     \end{lstlisting}\ttfamily
@@ -1192,9 +1194,9 @@ private:
     void calculate();
     //成员函数readNum和isNum与前面章节定义的相同
 public:
-    Calculator(){ 
+    Calculator(){
         m_opr.push(make_unique<Hash>()); //调用移动push函数
-    } 
+    }
     double doIt(const string &exp);
 };
  \end{lstlisting}\ttfamily
@@ -1226,9 +1228,9 @@ void Calculator::calculate(){   //操作数出栈并进行相应计算
     \begin{lstlisting}[moreemph={Operator,Plus,Minus,Multiply,Divide,Equal}]
 double Calculator::doIt(const string &exp){
     for (auto it = exp.begin(); it != exp.end();){
-        if (isNum(it))          
+        if (isNum(it))
             m_num.push(readNum(it));
-        else{                  
+        else{
             char o = *it++;
             unique_ptr<Operator> oo; //定义基类指针
             if (o == '+')
@@ -1248,7 +1250,7 @@ double Calculator::doIt(const string &exp){
             while (oo->precedence()<=m_opr.top()->precedence()){
                 if (m_opr.top()->symbol() == '#')
                     break;
-                calculate(); 
+                calculate();
             }
             if( oo->symbol() != '=')
                 m_opr.push(std::move(oo));
