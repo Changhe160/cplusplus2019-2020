@@ -51,7 +51,7 @@ stringstyle=\color{brown},                                            % 设置�
 breaklines,                                                           % 控制是否折行
 postbreak=\space,                                                     % 控制折行后显示的标识字符
 breakindent=5pt,                                                      % 控制折行后缩进数量
-emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple,function,placeholders,std,nullptr}, % 非内置类型
+emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple,function,placeholders,std,nullptr,unique\_ptr}, % 非内置类型
 emphstyle={\color{teal}},
 escapeinside={(*@}{@*)},
 %调整马德里的代码行号
@@ -794,7 +794,7 @@ while (entries) {
 	我们在编程中常常会面临容器的选择，而不合理的容器选择将会大大\alert{降低程序的效率}。本节将介绍一些常用的容器使用原则：
 	\begin{itemize}
 		\item 使用empty检查容器是否为空
-		\item 使用存放指针的容器
+		\item \alert{使用存放指针的容器}
 		\item 使用算法和区间成员
 		\item 使用reserve成员
 		\item 使用有序的vector容器
@@ -859,12 +859,12 @@ reverse(vp.begin(), vp.end()); //翻转指针
 	\end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{11.2~容器\small{——高效使用容器*}}
+\begin{frame}[fragile]{11.2~容器\small{——高效使用容器}}
 	同时，为了方便地维护内存，\alert{避免内存泄漏问题}，我们可以在容器中存放unique\_ptr
 	% \begin{columns}[T]
 	%     \column{0.65\textwidth}
 	\begin{blueblock}{在容器中存放unique\_ptr}
-		\begin{lstlisting}[moreemph={T}]
+		\begin{lstlisting}[moreemph={LargeData}]
 vector<unique_ptr<LargeData>> vsp; //定义一个存放unique_ptr的vector
 vp.push_back(make_unique<LargeData>(1)); //make_unique为C++14标准
 vp.push_back(std::move(unique_ptr<LargeData>(new LargeData(2))));
@@ -1181,7 +1181,7 @@ stable_sort(v.begin(), v.end());
 	\end{redblock}
 \end{frame}
 
-\begin{frame}[fragile]{11.3~泛型算法\small{——算法概述*}}
+\begin{frame}[fragile]{11.3~泛型算法\small{——算法概述}}
 \vspace{-3mm}
 	\begin{redblock}{注意}
 		如果容器元素是用户自定义类型，则需要提供元素的<运算符\\

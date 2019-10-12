@@ -1173,7 +1173,7 @@ public:
         \begin{lstlisting}[basicstyle=\normalsize\ttfamily,moreemph={Node, T,Stack}]
         template<typename T>                // 含右值形参的移动构造函数
         Node<T>::Node(T &&val) :m_value(std::move(val)) { }
-        
+
         template<typename T>
         void Stack<T>::push(T &&val) {       //含右值形参的push函数
             Node<T> *node = new Node<T>(std::move(val));
@@ -1276,7 +1276,7 @@ double Calculator::doIt(const string &exp){
   \begin{block}{上机作业}
  \begin{enumerate}
    \item 实验指导书：第九章
-   \item 检查日期：待定
+   \item 检查日期：2019年10月13日下午2:00
    \item 地点：与助教协商
  \end{enumerate}
 \end{block}

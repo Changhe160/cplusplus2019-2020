@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass[UTF8,aspectratio=43,10pt,t]{ctexbeamer}
+\documentclass[UTF8,aspectratio=169,10pt,t]{ctexbeamer}
 
 \mode<presentation> {
 \usetheme{Madrid}
@@ -138,8 +138,8 @@ int main() {
             \begin{lstlisting}[moreemph={T}]
 //Foo.h
 namespace Foo {
-int doSomething(int x, int y);
-class X{ /*...*/ };
+    int doSomething(int x, int y);
+    class X{ /*...*/ };
 }
             \end{lstlisting}
         \end{blueblock}
@@ -155,7 +155,7 @@ class X{ /*...*/ };
 \end{frame}
 
 \begin{frame}[fragile]{12.1~命名空间\small{——定义命名空间}}
-    一个命名空间是可以不连续的。通常情况下，我们将命名空间成员声明放到头文件中，实现放在源文件，从而达到接口和实现分离的目的。例如：
+    一个命名空间是可以不连续的。通常情况下，将命名空间成员声明放到头文件中，实现放在源文件，从而达到接口和实现分离的目的。例如：
 
     \begin{columns}[T]
         \column{0.65\textwidth}
@@ -163,14 +163,14 @@ class X{ /*...*/ };
             \begin{lstlisting}[moreemph={T}]
 //Foo.h
 namespace Foo {
-int doSomething(int x, int y);
-class X{ /*...*/ };
+    int doSomething(int x, int y);
+    class X{ /*...*/ };
 }
 
 //Foo.cpp
 namespace Foo {
-X g_x;
-int doSomething(int x, int y) { /*...*/ }
+    X g_x;
+    int doSomething(int x, int y) { /*...*/ }
 }
             \end{lstlisting}
         \end{blueblock}
@@ -215,7 +215,7 @@ int x = Foo::doSomething(2, 1);
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}{命名空间的嵌套示例}
-            \begin{lstlisting}[moreemph={T}]
+            \vspace{-3mm}\begin{lstlisting}[moreemph={Wang,Goo,Boo}]
 namespace Wang {
     namespace Goo {
         int doSomething(int x, int y);
@@ -224,12 +224,12 @@ namespace Wang {
         class Y {/*...*/};
     }
 }
-            \end{lstlisting}
+            \end{lstlisting}\vspace{-3mm}
         \end{blueblock}
         \begin{blueblock}{嵌套命名空间的访问}
-            \begin{lstlisting}[moreemph={T}]
+            \vspace{-3mm}\begin{lstlisting}[moreemph={Wang,Goo,Boo}]
 int x = Wang::Goo::doSomething(2, 1);
-            \end{lstlisting}
+            \end{lstlisting}\vspace{-3mm}
         \end{blueblock}
         \column{0.3\textwidth}
         \begin{yellowblock}
@@ -240,7 +240,7 @@ int x = Wang::Goo::doSomething(2, 1);
     \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{12.1~命名空间\small{——定义命名空间}}
+\begin{frame}[fragile]{12.1~命名空间\small{——定义命名空间*}}
     C++11 标准新增\textbf{内联命名空间（inline namespace）}，用来指示命名空间中的名称可以\alert{在外层命名空间中直接使用}。当一个程序的新版本发布时，我们使用内联命名空间，例如：
     \begin{columns}[T]
         \column{0.65\textwidth}
@@ -346,13 +346,15 @@ using namespace std;
 
 \section{异常处理}
 \begin{frame}[fragile]{12.2~异常处理}
-    我们很难保证一个大型程序在运行期间不会出现错误，如果出现了错误，程序很可能无法正确运行，甚至会崩溃。\textbf{异常处理（exception handling）}允许我们将\alert{异常检测和解决的过程分离开来}，程序中某一个模块出现了异常不会导致整个程序无法正确运行。
-    C++ 语言提供了异常内部处理机制，该处理机制涉及到三个关键字：
+    我们很难保证一个大型程序在运行期间不会出现错误，如果出现了错误，程序很可能无法正确运行，甚至会崩溃。\textbf{异常处理（exception handling）}允许将\alert{异常检测和解决的过程分离开来}，程序中某一个模块出现了异常不会导致整个程序无法正确运行。
+    \pause
+    \begin{block}{C++ 语言异常内部处理机制使用的三个关键字}
     \begin{itemize}
         \item try：检测可能产生异常的语句块
         \item catch：捕获异常
         \item throw：抛出异常
     \end{itemize}
+    \end{block}
 \end{frame}
 
 \subsection{抛出异常}
@@ -548,21 +550,21 @@ catch (exception &ex) {
 \subsection{多重继承}
 \begin{frame}[fragile]{12.3~多重继承与虚继承\small{——多重继承}}
     \begin{block}
-        {{12.1~命名空间\small{——使用命名空间}}}
-        为一个派生类指定多个基类的继承结构称为{12.1~命名空间\small{——使用命名空间}}
+        {多重继承}
+        为一个派生类指定多个基类的继承结构称为{多重继承}
     \end{block}
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}
-            {{12.1~命名空间\small{——使用命名空间}}}
-            \begin{lstlisting}[moreemph={T}]
+            {多重继承示例}
+            \begin{lstlisting}[moreemph={Bat,Mammal,WingedAnimal}]
 class Mammal {
 public:
-    virtual void feedMilk() {} //母乳喂养
+    virtual void feedMilk() {}      //母乳喂养
 };
 class WingedAnimal {
 public:
-    virtual void flap() {} //振翅飞翔
+    virtual void flap() {}          //振翅飞翔
 };
 class Bat: public Mammal, public WingedAnimal { };
         \end{lstlisting}
@@ -584,11 +586,11 @@ class Bat: public Mammal, public WingedAnimal { };
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}
-            {多重继承}
-            \begin{lstlisting}[moreemph={T}]
+            {多重继承示例}
+            \begin{lstlisting}[moreemph={Bat,Mammal,WingedAnimal}]
 Bat b;
-b.feedMilk(); //母乳喂养
-b.flap(); //振翅飞翔
+b.feedMilk();       //母乳喂养
+b.flap();           //振翅飞翔
         \end{lstlisting}
         \end{blueblock}
         \column{0.3\textwidth}
@@ -636,7 +638,7 @@ Bat::Bat() :Mammal(), WingedAnimal() {}
         \column{0.65\textwidth}
         \begin{blueblock}
             {加入公共基类Animal}
-            \begin{lstlisting}[moreemph={T}]
+            \begin{lstlisting}[moreemph={Animal,WingedAnimal,Mammal}]
 class Animal {
 protected:
     int m_age;
@@ -659,7 +661,7 @@ class Bat: public Mammal, public WingedAnimal { };
         \begin{figure}
             \includegraphics[scale=0.6]{Fig12-2.png}
         \end{figure}
-        \begin{redblock}
+        \begin{redblock}<2->
             {死亡钻石}
             菱形继承关系造成的二义性问题
         \end{redblock}
@@ -753,12 +755,12 @@ arr[0][0] = 1;
     \begin{greenblock}
         {存在的难点}
         C++仅支持一维下标操作符的重载：
-        \begin{lstlisting}[moreemph={T}]
+        \vspace{-3mm}\begin{lstlisting}[moreemph={T}]
 class Array2D{
     /*...*/
     int operator [][](/*...*/); //错误：C++没有运算符[][]
 };
-\end{lstlisting}
+\end{lstlisting}\vspace{-3mm}
     \end{greenblock}
 
     \onslide<2>{\begin{yellowblock}
@@ -770,7 +772,7 @@ class Array2D{
 \begin{frame}[fragile]{12.4~嵌套类\small{——二维数组类}}
     \begin{blueblock}
         {代码清单12.1~二维数组类}
-        \begin{lstlisting}[moreemph={T}]
+        \vspace{-3mm}\begin{lstlisting}[moreemph={Array2D,Array1D}]
 template<typename T>
 class Array2D {
 private:
@@ -926,15 +928,14 @@ unique_ptr<Operator> oo = ms_operator[’+’]();
         \column{0.65\textwidth}
         \begin{blueblock}
             {代码清单12.2 Operator类对象工厂1}
-            \begin{lstlisting}[moreemph={T}]
+           \vspace{-3mm} \begin{lstlisting}[moreemph={Factory,RegisterClass}]
 class Factory{
 public:
 template<typename T>
 struct RegisterClass {
     RegisterClass(char opr) {
-        Factory::ms_operator.emplace(opr,
-          []{return make_unique<T>();});
-    } //在ms_operator作用域范围内，可以直接访问
+    Factory::ms_operator.emplace(opr,[]{return make_unique<T>();});
+    } 
 };
 static unique_ptr<Operator> create(char opr) {
     auto it = ms_operator.find(opr);
@@ -942,8 +943,7 @@ static unique_ptr<Operator> create(char opr) {
         return it->second(); //调用关联的lambda表达式
 }
 private://静态成员
-    static map<char,
-      function<unique_ptr<Operator>()>> ms_operator;
+    static map<char,function<unique_ptr<Operator>()>> ms_operator;
 };
 \end{lstlisting}
         \end{blueblock}
@@ -1013,11 +1013,12 @@ REGISTRAR(Equal, ’=’);
 \end{frame}
 
 \begin{frame}[fragile]{12.4~嵌套类\small{——二维数组类}}
+\vspace{-3mm}
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}
             {修改后Calculator类的doIt函数}
-            \begin{lstlisting}[moreemph={T}]
+            \vspace{-3mm}\begin{lstlisting}[moreemph={Calculator}]
 double Calculator::doIt(const string & exp) {
     for (auto it = exp.begin(); it != exp.end();) {
         if (isNum(it))
@@ -1080,6 +1081,7 @@ double Calculator::doIt(const string & exp) {
 \subsection{dynamic\_cast运算符}
 \begin{frame}[fragile]{12.5~运行时类型识别\small{——dynamic\_cast运算符}}
     \textbf{dynamic\_cast运算符}用于\alert{基类和派生类}之间的安全转换，其使用方式有：
+    \vspace{-3mm}
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}
@@ -1093,7 +1095,7 @@ dynamic_cast<type&&>(expr)
         \column{0.3\textwidth}
         \begin{yellowblock}
             {说明}
-            三种使用方式中，expr依次必须为：\\
+            expr依次必须为：\\
             $\bullet$ 有效的指针\\
             $\bullet$ 左值\\
             $\bullet$ 右值\\
@@ -1137,7 +1139,6 @@ if (Derived *d = dynamic_cast<Derived*>(b2))
         \column{0.3\textwidth}
         \begin{yellowblock}
             {说明}
-            下方代码：\\
             $\bullet$ 第一个转换b1与基类对象绑定，转换失败\\
             $\bullet$ 第二个转换b2与派生类对象绑定，转换成功，执行name调用\\
         \end{yellowblock}
