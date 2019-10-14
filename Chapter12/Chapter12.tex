@@ -54,7 +54,7 @@ stringstyle=\color{brown},                                            % 设置�
 breaklines,                                                           % 控制是否折行
 postbreak=\space,                                                     % 控制折行后显示的标识字符
 breakindent=5pt,                                                      % 控制折行后缩进数量
-emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple}, % 非内置类型
+emph={size\_t,array,deque,list,map,queue,set,stack,vector,string,pair,tuple,unique\_ptr}, % 非内置类型
 emphstyle={\color{teal}},
 escapeinside={(*@}{@*)},
 }
@@ -751,9 +751,9 @@ int arr[2][2];
 arr[0][0] = 1;
 \end{lstlisting}
     \end{greenblock}
-
+\pause
     \begin{greenblock}
-        {存在的难点}
+        {存在的问题}
         C++仅支持一维下标操作符的重载：
         \vspace{-3mm}\begin{lstlisting}[moreemph={T}]
 class Array2D{
@@ -763,7 +763,7 @@ class Array2D{
 \end{lstlisting}\vspace{-3mm}
     \end{greenblock}
 
-    \onslide<2>{\begin{yellowblock}
+    \onslide<3>{\begin{yellowblock}
             {分析}
             \texttt{arr[0][0]}等价于\texttt{(arr[0])[0]}
         \end{yellowblock}}
@@ -801,7 +801,7 @@ private:
         \column{0.65\textwidth}
         \begin{blueblock}
             {代码清单12.1~二维数组类}
-            \begin{lstlisting}[moreemph={T}]
+            \vspace{-3mm}\begin{lstlisting}[moreemph={Array2D，Array1D}]
 ...//上页内容
 class Array1D {
     friend class Array2D; //声明为友元类
@@ -813,37 +813,54 @@ private:
     T *m_arr = nullptr;
 };
 ...//上页内容
-\end{lstlisting}
+\end{lstlisting}\vspace{-2.5mm}
         \end{blueblock}
-        \begin{blueblock}
-            {使用二维数组}
-            \begin{lstlisting}[moreemph={T}]
-Array2D<int> arr(2, 2);
-arr[0][0] = 1;
-\end{lstlisting}
-        \end{blueblock}
+        
         \column{0.3\textwidth}
         \begin{yellowblock}
             {说明}
             $\bullet$ 使用嵌套类将Array1D的底层实现隐藏
+        \end{yellowblock}
+        \end{columns}
+        \pause
+        \begin{columns}[T]
+        \column{0.65\textwidth}
+        \begin{blueblock}
+            {使用二维数组}
+            \vspace{-3mm}\begin{lstlisting}[moreemph={Array2D}]
+Array2D<int> arr(2, 2);
+arr[0][0] = 1;                      //写操作
+cout << arr[0][0] << endl;          //读操作
+\end{lstlisting}\vspace{-2.5mm}
+        \end{blueblock}
+         \column{0.3\textwidth}
+         \pause
+        \begin{yellowblock}
+            {想一想}
+            $\bullet$ 如何判断对arr元素的读写操作？
         \end{yellowblock}
     \end{columns}
 \end{frame}
 
 \subsection{通用计算器}
 \begin{frame}[fragile]{12.4~嵌套类\small{——二维数组类}}
-    9.3.5节中我们实现的计算器程序有以下的代码：
+    9.3.5节中我们实现的计算器程序doIt函数中有以下代码：
     \begin{columns}[T]
         \column{0.65\textwidth}
         \begin{blueblock}
             {计算器}
-            \begin{lstlisting}[moreemph={T}]
+            \begin{lstlisting}[moreemph={Operator,Plus,Minus,Multiply,Divide}]
 /*...*/
 unique_ptr<Operator> oo;
-if (o == ’+’)
+if (o == '+')
     oo = make_unique<Plus>();
-else if (o == ’-’)
+else if (o == '-')
     oo = make_unique<Minus>();
+else if (o == '*')
+    oo = make_unique<Multiply>();
+else if (o == '/')
+    oo = make_unique<Divide>();
+...
 /*...*/
 \end{lstlisting}
         \end{blueblock}
@@ -861,9 +878,10 @@ else if (o == ’-’)
     首先我们需要实现一个\textbf{类注册机制}，我们将用如下数据结构来实现：
     \begin{columns}[T]
         \column{0.65\textwidth}
+        \pause
         \begin{blueblock}
             {类注册机制核心数据结构}
-            \begin{lstlisting}[moreemph={T}]
+            \begin{lstlisting}[moreemph={Operator,function}]
 map<char, function<unique_ptr<Operator>()>> ms_operator;
 \end{lstlisting}
         \end{blueblock}
@@ -886,8 +904,8 @@ map<char, function<unique_ptr<Operator>()>> ms_operator;
         \column{0.65\textwidth}
         \begin{blueblock}
             {类注册机制核心数据结构}
-            \begin{lstlisting}[moreemph={T}]
-ms_operator.emplace(’+’,[]() { return make_unique<Plus>(); });
+            \begin{lstlisting}[moreemph={Plus}]
+ms_operator.emplace('+',[]() { return make_unique<Plus>(); });
 \end{lstlisting}
         \end{blueblock}
         \column{0.3\textwidth}
@@ -904,14 +922,15 @@ ms_operator.emplace(’+’,[]() { return make_unique<Plus>(); });
 之后即可根据用算符名字自动创建该运算符类对象：
 \begin{blueblock}
     {类注册机制核心数据结构}
-    \begin{lstlisting}[moreemph={T}]
-ms_operator.emplace(’+’,[]() { return make_unique<Plus>(); });
+    \begin{lstlisting}[moreemph={Plus}]
+ms_operator.emplace('+',[]() { return make_unique<Plus>(); });
 \end{lstlisting}
 \end{blueblock}
+\pause
 \begin{blueblock}
     {根据名字自动创建运算符}
-    \begin{lstlisting}[moreemph={T}]
-unique_ptr<Operator> oo = ms_operator[’+’]();
+    \begin{lstlisting}[moreemph={Operator}]
+unique_ptr<Operator> oo = ms_operator['+']();
 \end{lstlisting}
 \end{blueblock}
 \begin{yellowblock}
@@ -928,23 +947,24 @@ unique_ptr<Operator> oo = ms_operator[’+’]();
         \column{0.65\textwidth}
         \begin{blueblock}
             {代码清单12.2 Operator类对象工厂1}
-           \vspace{-3mm} \begin{lstlisting}[moreemph={Factory,RegisterClass}]
+           \vspace{-3mm} \begin{lstlisting}[moreemph={Factory,RegisterClass,Operator}]
 class Factory{
 public:
 template<typename T>
 struct RegisterClass {
     RegisterClass(char opr) {
     Factory::ms_operator.emplace(opr,[]{return make_unique<T>();});
-    } 
+    }
 };
 static unique_ptr<Operator> create(char opr) {
     auto it = ms_operator.find(opr);
     if (it != ms_operator.end())
-        return it->second(); //调用关联的lambda表达式
+        return (*@{\alert {it->second}}@*)();    //调用关联的lambda表达式
 }
-private://静态成员
+private:                        //静态成员
     static map<char,function<unique_ptr<Operator>()>> ms_operator;
 };
+map<char, function<unique_ptr<Operator>()>> Factory::ms_operator;
 \end{lstlisting}
         \end{blueblock}
         \column{0.3\textwidth}
@@ -963,19 +983,18 @@ private://静态成员
         \column{0.65\textwidth}
         \begin{blueblock}
             {代码清单12.2 Operator类对象工厂2}
-            \begin{lstlisting}[moreemph={T}]
+            \begin{lstlisting}[moreemph={Plus,Factory,RegisterClass,Operator}]
 #define REGISTRAR(T, Key) Factory::RegisterClass<T> reg_##T(Key);
-map<char, function<unique_ptr<Operator>()>> Factory::ms_operator;
 \end{lstlisting}
         \end{blueblock}
         \begin{blueblock}
             {示例：注册Plus类}
-            \begin{lstlisting}[moreemph={T}]
-REGISTRAR(Plus, ’+’);
+            \begin{lstlisting}[moreemph={Plus}]
+REGISTRAR(Plus, '+');
 \end{lstlisting}
             等价于：
-            \begin{lstlisting}[moreemph={T}]
-Factory::RegisterClass<Plus> reg_Plus(’+’);
+            \begin{lstlisting}[moreemph={Plus,Factory,RegisterClass}]
+Factory::RegisterClass<Plus> reg_Plus('+');
 \end{lstlisting}
         \end{blueblock}
 
@@ -995,11 +1014,11 @@ Factory::RegisterClass<Plus> reg_Plus(’+’);
         \column{0.65\textwidth}
         \begin{blueblock}
             {代码清单12.2 Operator类对象工厂2}
-            \begin{lstlisting}[moreemph={T}]
-REGISTRAR(Minus, ’-’);
-REGISTRAR(Multiply, ’*’);
-REGISTRAR(Divide, ’/’);
-REGISTRAR(Equal, ’=’);
+            \begin{lstlisting}[moreemph={Minus,Multiply,Divide,Equal}]
+REGISTRAR(Minus, '-');
+REGISTRAR(Multiply, '*');
+REGISTRAR(Divide, '/');
+REGISTRAR(Equal, '=');
 \end{lstlisting}
         \end{blueblock}
         \column{0.3\textwidth}
@@ -1094,8 +1113,7 @@ dynamic_cast<type&&>(expr)
         \end{blueblock}
         \column{0.3\textwidth}
         \begin{yellowblock}
-            {说明}
-            expr依次必须为：\\
+            {expr依次必须为：}
             $\bullet$ 有效的指针\\
             $\bullet$ 左值\\
             $\bullet$ 右值\\
