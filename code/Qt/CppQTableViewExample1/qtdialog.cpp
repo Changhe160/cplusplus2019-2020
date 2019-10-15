@@ -13,6 +13,7 @@ QtDialog::QtDialog(QWidget *parent) :
 
   assert(!ui->table->model());
   ui->table->setModel(new QStandardItemModel(this));
+
   assert( ui->table->model());
 
   assert(dynamic_cast<QStandardItemModel*>(ui->table->model()));
@@ -39,7 +40,7 @@ void QtDialog::on_button_clicked()
   const int j = (std::rand() >> 4) % n_cols;
   items[j]->setText("X");
 
-  assert(dynamic_cast<QStandardItemModel*>(ui->table->model()));
+  //assert(dynamic_cast<QStandardItemModel*>(ui->table->model()));
   dynamic_cast<QStandardItemModel*>(ui->table->model())->appendRow(items);
 
   ui->table->scrollToBottom();
