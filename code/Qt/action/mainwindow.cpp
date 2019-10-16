@@ -35,12 +35,12 @@ MainWindow::~MainWindow()
 }
 void MainWindow::open()
 {
-    //QMessageBox::information(this, tr("Information"), tr("Open"));
-    //QDialog dialog(this);
-    //dialog.setWindowTitle(tr("Hello, dialog!"));
-   // dialog.exec();
-    QDialog *dialog = new QDialog(this);
+    QMessageBox::information(this, tr("Information"), tr("Open"));
+    QDialog dialog(this);
+    dialog.setWindowTitle(tr("Hello, dialog!"));
+    dialog.exec();
+   /* QDialog *dialog = new QDialog(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->setWindowTitle(tr("Hello, dialog!"));
-    dialog->show();
+    dialog->show();*/
 }

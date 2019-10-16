@@ -7,7 +7,7 @@ class Newspaper : public QObject
 {
     Q_OBJECT
 public:
-    Newspaper(const QString & name,const QDate &date=QDate::currentDate()) :
+    Newspaper(const QString &name,const QDate &date=QDate::currentDate()) :
         m_name(name),m_date(date)
     {
     }

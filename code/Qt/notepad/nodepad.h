@@ -12,7 +12,7 @@ class Nodepad : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Nodepad(QWidget *parent = 0);
+    explicit Nodepad(QWidget *parent = nullptr);
     ~Nodepad();
 
 private slots:

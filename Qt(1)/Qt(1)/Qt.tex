@@ -107,7 +107,7 @@ escapeinside={(*@}{@*)},
         \column{0.5\textwidth}
         \pause \centering \includegraphics[width=0.66\textwidth]{fig/fig1} \vspace{-2.3mm}
    \begin{block}{跨平台}
- 桌面OS：Windows， Linux， Mac; 移动OS：iOS， Android，WP; 嵌入式OS： QNX，VxWorks
+ 桌面OS：Windows， Linux， Mac; 移动OS：iOS， Android，WP; 嵌入式OS： QNX，VxWorks 
   \end{block}
   \column{0.45\textwidth}
    \pause
@@ -159,8 +159,7 @@ escapeinside={(*@}{@*)},
 		\begin{block}{信号 \texttt{signals}}
 			\begin{itemize}
 				\item 信号由对象发射
-				\item 基类的信号被派生类继承
-                \item 无实现，类似C++纯虚函数
+				\item 只有定义过这个信号的类及其派生类能够发射这个信号
 			\end{itemize}
 		\end{block}
 
@@ -168,7 +167,7 @@ escapeinside={(*@}{@*)},
 		\column{0.48\textwidth}
 				\begin{block}{槽 \texttt{slots}}
 			\begin{itemize}
-				\item 槽是普通的 C++ 成员函数
+				\item 槽是普通的 C++ 成员函数，正常调用
 				\item 多个信号可以与其相关联
 				\item 槽可以有参数，但参数不能有缺省值。
 			\end{itemize}

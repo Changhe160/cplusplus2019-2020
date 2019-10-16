@@ -13,4 +13,4 @@ FORMS    += \
     qtdialog.ui
 
 RESOURCES += \
-    CppQTableWidgetExample1.qrc
+    tableWidget.qrc

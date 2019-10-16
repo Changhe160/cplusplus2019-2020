@@ -8,7 +8,7 @@ class Reader : public QObject
 public:
     Reader() {}
 public slots:
-    void receiveNewspaper(const QString & name,const QDate &date)
+    void receiveNewspaper(const QString &name,const QDate &date)
     {
         qDebug() << "Receives Newspaper: " << name<<" "<<date;
     }
