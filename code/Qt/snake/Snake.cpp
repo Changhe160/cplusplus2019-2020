@@ -69,11 +69,11 @@ void Snake::doDrawing() {
 
 void Snake::gameOver(QPainter &qp) {
 
-    QString message = "Game over";
-    QFont font("Courier", 15, QFont::DemiBold);
+    QString message = "Game Over";
+    QFont font("Courier", 22, QFont::DemiBold);
     QFontMetrics fm(font);
     int textWidth = fm.width(message);
-
+    qp.setPen(QColor(0,255,0));
     qp.setFont(font);
     int h = height();
     int w = width();

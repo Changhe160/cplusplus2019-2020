@@ -9,8 +9,9 @@ AnalogClock::AnalogClock(QWidget *parent)
     : QWidget(parent)
 {
    QTimer *timer = new QTimer(this);
-   connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-   timer->start(100);
+   //connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+   connect(timer,&QTimer::timeout,this,QOverload<>::of(&AnalogClock::update));
+   timer->start(200);
     // update, repaint,  region,erase
    setWindowTitle(tr("Analog Clock"));
    resize(200, 200);
@@ -43,7 +44,7 @@ void AnalogClock::paintEvent(QPaintEvent*){
     // define colors for hour and minute hands, minute hand is 75% opaque
     QColor hourColor(127, 0, 127);
     QColor minuteColor(0, 127, 127, 191);
-    QColor secondColor(0, 0, 0, 220);
+    QColor secondColor(0, 0, 0,220);
 
     //get the min size of wedget height and width
     int side = qMin(width(), height());
